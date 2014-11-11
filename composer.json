@@ -1,0 +1,32 @@
+{
+    "name": "mvieira/content-negotiation",
+    "description": "PHP implementation server content negotiation ",
+    "minimum-stability": "stable",
+    "type": "library",
+    "version": "0.0.1",
+    "authors": [
+        {
+            "name": "Mickael Vieira",
+            "email": "contact@mickael-vieira.com",
+            "homepage": "mickael-vieira.com"
+        }
+    ],
+    "require": {
+        "php": "~5.4"
+    },
+    "require-dev": {
+        "phpspec/phpspec": "~2.0",
+        "phpspec/nyan-formatters": "1.*",
+        "henrikbjorn/phpspec-code-coverage": "~0.2",
+        "squizlabs/php_codesniffer": "1.*",
+        "phpmd/phpmd" : "2.0.*"
+    },
+    "config": {
+        "bin-dir": "bin"
+    },
+    "autoload": {
+        "psr-4": {
+            "ContentNegotiation\\": "src/ContentNegotiation/"
+        }
+    }
+}
