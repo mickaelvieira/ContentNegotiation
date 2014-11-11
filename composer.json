@@ -1,6 +1,6 @@
 {
     "name": "mvieira/content-negotiation",
-    "description": "PHP implementation server content negotiation ",
+    "description": "PHP implementation server content negotiation",
     "minimum-stability": "stable",
     "type": "library",
     "version": "0.0.1",
@@ -8,7 +8,7 @@
         {
             "name": "Mickael Vieira",
             "email": "contact@mickael-vieira.com",
-            "homepage": "mickael-vieira.com"
+            "homepage": "http://mickael-vieira.com"
         }
     ],
     "require": {
