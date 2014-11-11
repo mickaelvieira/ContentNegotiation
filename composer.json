@@ -1,6 +1,6 @@
 {
     "name": "mvieira/content-negotiation",
-    "description": "PHP implementation server content negotiation",
+    "description": "PHP implementation server driven negotiation",
     "minimum-stability": "stable",
     "type": "library",
     "version": "0.0.1",
