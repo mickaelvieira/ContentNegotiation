@@ -3,7 +3,16 @@
     "description": "PHP implementation server driven negotiation",
     "minimum-stability": "stable",
     "type": "library",
-    "version": "0.0.1",
+    "license": "MIT",
+    "keywords": [
+        "HTTP",
+        "Content Negotiation",
+        "Headers",
+        "Accept",
+        "Media type",
+        "Charset",
+        "Language"
+    ],
     "authors": [
         {
             "name": "Mickael Vieira",
