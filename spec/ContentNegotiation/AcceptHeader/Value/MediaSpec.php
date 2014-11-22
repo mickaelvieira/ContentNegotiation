@@ -96,4 +96,13 @@ class MediaSpec extends ObjectBehavior
         $this->shouldHaveValue('application/*');
         $this->shouldNotHaveValue('json');
     }
+
+    function it_should_return_a_media_parameter_by_name()
+    {
+        $this->beConstructedWith(
+            "text/html;mediaparam1=value1;mediaparam2=value2; q=0.4; extparam=whatever1; extparam2=whatever2"
+        );
+        $this->getMediaParamByName('mediaparam1')->shouldBeEqualTo('value1');
+        $this->getMediaParamByName('mediaparam2')->shouldBeEqualTo('value2');
+    }
 }

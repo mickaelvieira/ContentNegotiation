@@ -90,21 +90,21 @@ class Media extends Value
     }
 
     /**
-     * @param string $key
+     * @param string $name
      * @param string $value
      */
-    private function addMediaParam($key, $value)
+    private function addMediaParam($name, $value)
     {
-        $this->mediaParams[$key] = trim($value);
+        $this->mediaParams[$name] = trim($value);
     }
 
     /**
-     * @param string $key
+     * @param string $name
      * @param string $value
      */
-    private function addExtParam($key, $value)
+    private function addExtParam($name, $value)
     {
-        $this->extParams[$key] = trim($value);
+        $this->extParams[$name] = trim($value);
     }
 
     /**
@@ -126,5 +126,14 @@ class Media extends Value
         }
 
         return $str;
+    }
+
+    /**
+     * @param string $name
+     * @return string|null
+     */
+    public function getMediaParamByName($name)
+    {
+        return (array_key_exists($name, $this->mediaParams)) ? $this->mediaParams[$name] : null;
     }
 }
