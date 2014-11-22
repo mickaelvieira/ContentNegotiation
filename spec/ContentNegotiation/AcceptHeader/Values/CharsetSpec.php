@@ -35,18 +35,6 @@ class CharsetSpec extends ObjectBehavior
         $this->shouldHaveTag('unicode-1-1');
     }
 
-    function it_should_add_iso_8859_1_when_it_is_not_present_in_the_header_string()
-    {
-        $this->beConstructedWith('iso-8859-5, unicode-1-1;q=0.8');
-        $this->__toString()->shouldBeEqualTo('iso-8859-5;q=1,iso-8859-1;q=1,unicode-1-1;q=0.8');
-    }
-
-    function it_should_not_add_iso_8859_1_when_it_is_not_present_but_the_accept_all_tag_is_present_in_the_header_string()
-    {
-        $this->beConstructedWith('iso-8859-5, *;q=0.4, unicode-1-1;q=0.8');
-        $this->__toString()->shouldBeEqualTo('iso-8859-5;q=1,unicode-1-1;q=0.8,*;q=0.4');
-    }
-
     function it_should_be_aware_of_having_the_accept_all_tag()
     {
         $this->beConstructedWith('iso-8859-5, *, unicode-1-1;q=0.8');
@@ -69,7 +57,7 @@ class CharsetSpec extends ObjectBehavior
     function it_should_sort_the_entities()
     {
         $this->beConstructedWith('utf-7;q=0.5, iso-8859-5, unicode-1-1;q=0.8');
-        $this->__toString()->shouldBeEqualTo('iso-8859-5;q=1,iso-8859-1;q=1,unicode-1-1;q=0.8,utf-7;q=0.5');
+        $this->__toString()->shouldBeEqualTo('iso-8859-5;q=1,unicode-1-1;q=0.8,utf-7;q=0.5');
     }
 
     function it_should_sort_the_entities_with_accept_all_tag()
