@@ -102,7 +102,15 @@ class MediaSpec extends ObjectBehavior
         $this->beConstructedWith(
             "text/html;mediaparam1=value1;mediaparam2=value2; q=0.4; extparam=whatever1; extparam2=whatever2"
         );
-        $this->getParam('mediaparam1')->shouldHaveType('ContentNegotiation\AcceptHeader\Param'); //getValue()->shouldBeEqualTo('value1');
-        //$this->getParam('mediaparam2')->getValue()->shouldBeEqualTo('value2');
+        $this->getParam('mediaparam1')->shouldHaveType('ContentNegotiation\AcceptHeader\Param');
+        $this->getParam('mediaparam1')->getValue()->shouldBeEqualTo('value1');
+        $this->getParam('mediaparam2')->shouldHaveType('ContentNegotiation\AcceptHeader\Param');
+        $this->getParam('mediaparam2')->getValue()->shouldBeEqualTo('value2');
+        $this->getParam('q')->shouldHaveType('ContentNegotiation\AcceptHeader\Param');
+        $this->getParam('q')->getValue()->shouldBeEqualTo('0.4');
+        $this->getParam('extparam')->shouldHaveType('ContentNegotiation\AcceptHeader\Param');
+        $this->getParam('extparam')->getValue()->shouldBeEqualTo('whatever1');
+        $this->getParam('extparam2')->shouldHaveType('ContentNegotiation\AcceptHeader\Param');
+        $this->getParam('extparam2')->getValue()->shouldBeEqualTo('whatever2');
     }
 }
