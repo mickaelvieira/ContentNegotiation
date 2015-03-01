@@ -153,7 +153,7 @@ abstract class Value
         foreach ($pieces as $piece) {
             $param = explode("=", $piece);
             if (count($param) === 2) {
-                $this->addParam(new Param($param[0], $param[1]));
+                $this->addParam($param[0], $param[1]);
             }
         }
     }
@@ -161,8 +161,10 @@ abstract class Value
     /**
      * @param \ContentNegotiation\AcceptHeader\Param $param
      */
-    protected function addParam(Param $param)
+    protected function addParam($name, $value)
     {
+        $param = new Param($name, $value);
+
         array_push($this->params, $param);
     }
 
@@ -211,7 +213,7 @@ abstract class Value
     private function addDefaultQualityIfNoneSpecified()
     {
         if (!$this->getParam('q')) {
-            $this->addParam(new Param('q', $this->defaultQuality));
+            $this->addParam('q', $this->defaultQuality);
         }
     }
 
