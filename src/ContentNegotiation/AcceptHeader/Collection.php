@@ -24,15 +24,6 @@ class Collection implements \IteratorAggregate
     protected $entities = [];
 
     /**
-     * @param \ContentNegotiation\AcceptHeader\Entity $entity
-     */
-    protected function add(Entity $entity)
-    {
-        $entity->setIndex(count($this->entities));
-        array_push($this->entities, $entity);
-    }
-
-    /**
      * @return \ArrayIterator|\Traversable
      */
     public function getIterator()

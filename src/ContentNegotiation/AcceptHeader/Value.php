@@ -16,7 +16,7 @@ namespace ContentNegotiation\AcceptHeader;
  * Class Value
  * @package ContentNegotiation\AcceptHeader
  */
-abstract class Value extends Entity
+abstract class Value
 {
     /**
      * @var \ContentNegotiation\AcceptHeader\ValueRange
@@ -37,12 +37,19 @@ abstract class Value extends Entity
      * @var
      */
     protected $params = [];
+    /**
+     * @var int
+     */
+    protected $index = 0;
 
     /**
      * @param string $pieces
+     * @param int    $index
      */
-    public function __construct($pieces)
+    public function __construct($pieces, $index = null)
     {
+        $this->index = (int)$index;
+
         $pieces = explode(";", $this->cleanHeaderString($pieces));
         $values = array_shift($pieces);
 
@@ -206,5 +213,13 @@ abstract class Value extends Entity
         if (!$this->getParam('q')) {
             $this->addParam(new Param('q', $this->defaultQuality));
         }
+    }
+
+    /**
+     * @return int
+     */
+    public function getIndex()
+    {
+        return $this->index;
     }
 }

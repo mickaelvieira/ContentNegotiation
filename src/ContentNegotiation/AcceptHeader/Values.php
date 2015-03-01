@@ -18,7 +18,7 @@ use ContentNegotiation\AcceptHeader;
  * Class Values
  * @package ContentNegotiation\AcceptHeader
  */
-abstract class Values extends Collection implements AcceptHeader
+abstract class Values extends Collection implements AcceptHeader, \Countable
 {
     /**
      * @var string
@@ -39,6 +39,10 @@ abstract class Values extends Collection implements AcceptHeader
         $this->sort();
     }
 
+    public function count()
+    {
+        return count($this->entities);
+    }
     /**
      * {@inheritdoc}
      */
@@ -160,9 +164,9 @@ abstract class Values extends Collection implements AcceptHeader
 
         foreach ($values as $value) {
             /** @var Value $entity */
-            $entity = $this->getEntityInstance($value);
+            $entity = $this->getEntityInstance($value, $this->count());
             if ($entity && $entity->getQuality() > 0) {
-                $this->add($entity);
+                array_push($this->entities, $entity);
             }
         }
         $this->addDefaultValueIfNoneIsDefined();
@@ -174,8 +178,8 @@ abstract class Values extends Collection implements AcceptHeader
     protected function addDefaultValueIfNoneIsDefined()
     {
         if (count($this->entities) === 0) {
-            $valueRange = $this->getEntityInstance($this->defaultValue);
-            $this->add($valueRange);
+            $valueRange = $this->getEntityInstance($this->defaultValue, $this->count());
+            array_push($this->entities, $valueRange);
         }
     }
 
@@ -214,13 +218,14 @@ abstract class Values extends Collection implements AcceptHeader
     }
 
     /**
+     * @param int $index
      * @param string $value
      * @return \ContentNegotiation\AcceptHeader\Value
      */
-    protected function getEntityInstance($value)
+    protected function getEntityInstance($index, $value)
     {
         $className = $this->getValueClassName();
-        return new $className($value);
+        return new $className($index, $value);
     }
 
     /**
