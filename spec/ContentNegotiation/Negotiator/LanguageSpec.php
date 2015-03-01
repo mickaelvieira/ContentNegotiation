@@ -24,12 +24,16 @@ class LanguageSpec extends ObjectBehavior
         $this->shouldHaveType('ContentNegotiation\Negotiator\Language');
     }
 
-    function it_should_return_the_language_when_it_matches_a_supported_language($collection)
+    /**
+     * @param \ContentNegotiation\AcceptHeader\Values\Language $collection
+     * @param \ContentNegotiation\AcceptHeader\Value\Language $value
+     */
+    function it_should_return_the_language_when_it_matches_a_supported_language($collection, $value)
     {
         $supported = ['en', 'fr'];
-        $collection->findFirstMatchingValue($supported)->willReturn('fr');
+        $collection->findFirstMatchingValue($supported)->willReturn($value);
 
-        $this->negotiate($supported)->shouldReturn('fr');
+        $this->negotiate($supported)->shouldReturn($value);
     }
 
     function it_should_return_the_generic_language($collection)

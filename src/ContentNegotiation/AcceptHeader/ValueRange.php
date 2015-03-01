@@ -16,7 +16,7 @@ namespace ContentNegotiation\AcceptHeader;
  * Class ValueRange
  * @package ContentNegotiation\AcceptHeader
  */
-class ValueRange
+final class ValueRange
 {
     /**
      * @var string

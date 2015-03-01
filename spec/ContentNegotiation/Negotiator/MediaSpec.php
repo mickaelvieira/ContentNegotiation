@@ -24,10 +24,14 @@ class MediaSpec extends ObjectBehavior
         $this->shouldHaveType('ContentNegotiation\Negotiator\Media');
     }
 
-    function it_should_return_the_media_type_when_it_matches_a_supported_media_type($collection)
+    /**
+     * @param \ContentNegotiation\AcceptHeader\Values\Media $collection
+     * @param \ContentNegotiation\AcceptHeader\Value\Media $value
+     */
+    function it_should_return_the_media_type_when_it_matches_a_supported_media_type($collection, $value)
     {
-        $collection->findFirstMatchingValue(['text/html'])->willReturn('text/html');
-        $this->negotiate(['text/html'])->shouldReturn('text/html');
+        $collection->findFirstMatchingValue(['text/html'])->willReturn($value);
+        $this->negotiate(['text/html'])->shouldReturn($value);
     }
 
     function it_should_return_the_media_type_when_all_subtypes_are_accepted($collection)

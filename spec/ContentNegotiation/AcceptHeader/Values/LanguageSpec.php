@@ -59,11 +59,13 @@ class LanguageSpec extends ObjectBehavior
         $this->shouldHaveValue('fr-CH');
         $this->shouldNotHaveValue('en');
     }
-
+    /** broken test reference */
     function it_should_return_the_first_matching_value()
     {
         $this->beConstructedWith('es-ES;q=0.7, es;q=0.6, fr;q=1.0, *;q=0.3, fr-CH');
-        $this->findFirstMatchingValue(['fr-CH', 'fr-FR'])->shouldBeEqualTo('fr-CH');
+        $this->findFirstMatchingValue(['fr-CH', 'fr-FR'])
+            ->shouldHaveType('ContentNegotiation\AcceptHeader\Value\Language');
+        $this->findFirstMatchingValue(['fr-CH', 'fr-FR'])->getValue()->shouldBeEqualTo('fr-CH');
     }
 
     function it_should_return_null_where_there_is_no_matching_value()

@@ -24,13 +24,16 @@ class CharsetSpec extends ObjectBehavior
         $this->shouldHaveType('ContentNegotiation\Negotiator\Charset');
     }
 
-    function it_should_return_the_charset_when_it_matches_a_supported_charset($collection)
+    /**
+     * @param \ContentNegotiation\AcceptHeader\Values\Charset $collection
+     * @param \ContentNegotiation\AcceptHeader\Value\Charset $value
+     */
+    function it_should_return_the_charset_when_it_matches_a_supported_charset($collection, $value)
     {
         $supported = ['iso-8859-5', 'iso-8859-1', 'unicode-1-1'];
 
-        $collection->findFirstMatchingValue($supported)->willReturn('unicode-1-1');
-
-        $this->negotiate($supported)->shouldReturn('unicode-1-1');
+        $collection->findFirstMatchingValue($supported)->willReturn($value);
+        $this->negotiate($supported)->shouldReturn($value);
     }
 
     function it_should_return_null_when_it_does_not_match_any_and_the_accept_tag_is_not_present($collection)

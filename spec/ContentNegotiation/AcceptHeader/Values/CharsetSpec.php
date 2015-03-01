@@ -69,7 +69,8 @@ class CharsetSpec extends ObjectBehavior
     function it_should_return_the_first_matching_value()
     {
         $this->beConstructedWith('utf-8, utf-7, *;q=0.3, iso-8859-1, unicode-1-1;q=0.8');
-        $this->findFirstMatchingValue(['utf-8', 'utf-7'])->shouldBeEqualTo('utf-8');
+        $this->findFirstMatchingValue(['utf-8', 'utf-7'])->shouldHaveType('ContentNegotiation\AcceptHeader\Value\Charset');
+        $this->findFirstMatchingValue(['utf-8', 'utf-7'])->getValue()->shouldBeEqualTo('utf-8');
     }
 
     function it_should_return_null_where_there_is_no_matching_value()

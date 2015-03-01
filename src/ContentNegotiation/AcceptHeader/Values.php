@@ -111,7 +111,7 @@ abstract class Values extends Collection implements AcceptHeader
         foreach ($this->entities as $value) {
             /** @var Value $value */
             if (array_search($value->getValue(), $values, true) !== false) {
-                $match = $value->getValue();
+                $match = $value;
                 break;
             }
         }

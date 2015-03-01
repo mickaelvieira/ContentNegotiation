@@ -61,7 +61,8 @@ class MediaSpec extends ObjectBehavior
     function it_should_return_the_first_matching_value()
     {
         $this->beConstructedWith('audio/webm, audio/ogg, audio/wav, audio/*;q=0.9, application/ogg;q=0.7, video/*;q=0.6; */*;q=0.5');
-        $this->findFirstMatchingValue(['audio/ogg', 'audio/wav'])->shouldBeEqualTo('audio/ogg');
+        $this->findFirstMatchingValue(['audio/ogg', 'audio/wav'])->shouldHaveType('ContentNegotiation\AcceptHeader\Value\Media');
+        $this->findFirstMatchingValue(['audio/ogg', 'audio/wav'])->getValue()->shouldBeEqualTo('audio/ogg');
     }
 
     function it_should_return_null_where_there_is_no_matching_value()
