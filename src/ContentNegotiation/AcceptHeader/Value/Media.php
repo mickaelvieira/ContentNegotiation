@@ -12,6 +12,7 @@
 
 namespace ContentNegotiation\AcceptHeader\Value;
 
+use ContentNegotiation\AcceptHeader\Param;
 use ContentNegotiation\AcceptHeader\Value;
 
 /**
@@ -25,15 +26,6 @@ class Media extends Value
      */
     public static $delimiter = "/";
 
-    /**
-     * @var array
-     */
-    private $mediaParams = [];
-
-    /**
-     * @var array
-     */
-    private $extParams = [];
 
     /**
      * @return bool
@@ -49,91 +41,5 @@ class Media extends Value
     public function hasAcceptAllSubTag()
     {
         return $this->hasSubTag('*');
-    }
-
-    /**
-     * @return string
-     */
-    public function __toString()
-    {
-        $str = $this->getValue();
-        $str = $this->joinParameters($str, $this->mediaParams);
-        $str = $this->joinQuantity($str);
-        $str = $this->joinParameters($str, $this->extParams);
-
-        return $str;
-    }
-
-    /**
-     * @param $pieces
-     */
-    protected function addParams($pieces)
-    {
-        $found = false;
-        foreach ($pieces as $piece) {
-
-            $param = explode("=", $piece);
-
-            if (count($param) === 2) {
-                if ($param[0] === 'q') {
-                    $found = true;
-                    $this->setQuality($param[1]);
-                } else {
-                    if (!$found) {
-                        $this->addMediaParam($param[0], $param[1]);
-                    } else {
-                        $this->addExtParam($param[0], $param[1]);
-                    }
-                }
-            }
-        }
-    }
-
-    /**
-     * @param string $name
-     * @param string $value
-     */
-    private function addMediaParam($name, $value)
-    {
-        $this->mediaParams[$name] = trim($value);
-    }
-
-    /**
-     * @param string $name
-     * @param string $value
-     */
-    private function addExtParam($name, $value)
-    {
-        $this->extParams[$name] = trim($value);
-    }
-
-    /**
-     * @param string $str
-     * @param array $params
-     * @return string
-     */
-    private function joinParameters($str, array $params)
-    {
-        array_walk(
-            $params,
-            function (&$item, $key, $equal = "=") {
-                $item = $key . $equal . $item;
-            }
-        );
-
-        if (!empty($str)) {
-            $str .= !empty($params) ? ';' . implode(";", $params) : '';
-        }
-
-        return $str;
-    }
-
-    /**
-     * @param string $name
-     * @return string|null
-     */
-    public function getMediaParamByName($name)
-    {
-        return (array_key_exists($name, $this->mediaParams)) ? $this->mediaParams[$name] : null;
     }
 }

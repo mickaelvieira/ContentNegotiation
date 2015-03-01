@@ -39,7 +39,7 @@ class Media extends Values
         $qua1 = $val1->getQuality();
         $qua2 = $val2->getQuality();
 
-        if ($qua1 === $qua2) {
+        if ($qua1 == $qua2) {
 
             $len1 = strlen((string)$val1);
             $len2 = strlen((string)$val2);

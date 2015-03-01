@@ -26,12 +26,17 @@ abstract class Value extends Entity
     /**
      * @var float
      */
-    protected $quality = 1.0;
+    protected $defaultQuality = 1.0;
 
     /**
      * @var string
      */
     protected static $delimiter = "";
+
+    /**
+     * @var
+     */
+    protected $params = [];
 
     /**
      * @param string $pieces
@@ -44,6 +49,7 @@ abstract class Value extends Entity
         if ($values) {
             $this->valueRange = new ValueRange($values, static::getDelimiter());
             $this->addParams($pieces);
+            $this->addDefaultQualityIfNoneSpecified();
         }
     }
 
@@ -52,7 +58,8 @@ abstract class Value extends Entity
      */
     public function getQuality()
     {
-        return $this->quality;
+        $quality = $this->getParam('q');
+        return (float)$quality->getValue();
     }
 
     /**
@@ -61,14 +68,6 @@ abstract class Value extends Entity
     public static function getDelimiter()
     {
         return static::$delimiter;
-    }
-
-    /**
-     * @param float $quality
-     */
-    protected function setQuality($quality)
-    {
-        $this->quality = (float)$quality;
     }
 
     /**
@@ -84,9 +83,10 @@ abstract class Value extends Entity
      */
     public function __toString()
     {
-        return $this->joinQuantity(
-            $this->getValue()
-        );
+        $str = $this->getValue();
+        $str = $this->joinParameters($str, $this->params);
+
+        return $str;
     }
 
     /**
@@ -144,26 +144,67 @@ abstract class Value extends Entity
     protected function addParams(array $pieces)
     {
         foreach ($pieces as $piece) {
-
             $param = explode("=", $piece);
-
             if (count($param) === 2) {
-                if ($param[0] === 'q') {
-                    $this->setQuality($param[1]);
-                }
+                $this->addParam(new Param($param[0], $param[1]));
             }
         }
     }
 
     /**
+     * @param \ContentNegotiation\AcceptHeader\Param $param
+     */
+    protected function addParam(Param $param)
+    {
+        array_push($this->params, $param);
+    }
+
+    /**
+     * @param $name
+     * @return \ContentNegotiation\AcceptHeader\Param|null
+     */
+    public function getParam($name)
+    {
+        $param = null;
+
+        foreach ($this->params as $p) {
+            /** @var $p Param */
+            if ($p->getName() === $name) {
+                $param = $p;
+                break;
+            }
+        }
+
+        return $param;
+    }
+
+    /**
      * @param string $str
+     * @param array $params
      * @return string
      */
-    protected function joinQuantity($str)
+    protected function joinParameters($str, array $params)
     {
+        $strParams = "";
+
+        foreach ($params as $param) {
+            if (!empty($strParams)) {
+                $strParams .= ";";
+            }
+            $strParams .= (string)$param;
+        };
+
         if (!empty($str)) {
-            $str .= ";" . "q=" . $this->quality;
+            $str .= !empty($params) ? ';' . $strParams : '';
         }
+
         return $str;
+    }
+
+    private function addDefaultQualityIfNoneSpecified()
+    {
+        if (!$this->getParam('q')) {
+            $this->addParam(new Param('q', $this->defaultQuality));
+        }
     }
 }

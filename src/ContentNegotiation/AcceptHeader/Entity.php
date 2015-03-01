@@ -22,6 +22,14 @@ class Entity
      * @var int
      */
     protected $index = 0;
+    /**
+     * @var array
+     */
+    protected $mediaParams = [];
+    /**
+     * @var array
+     */
+    protected $extParams = [];
 
     /**
      * @param int $index
