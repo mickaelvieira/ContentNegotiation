@@ -26,7 +26,7 @@ abstract class Value
     /**
      * @var float
      */
-    protected $defaultQuality = 1.0;
+    protected $defaultQuality = 1;
 
     /**
      * @var string
@@ -36,7 +36,7 @@ abstract class Value
     /**
      * @var
      */
-    protected $params = [];
+    protected $params;
     /**
      * @var int
      */
@@ -55,8 +55,7 @@ abstract class Value
 
         if ($values) {
             $this->valueRange = new ValueRange($values, static::getDelimiter());
-            $this->addParams($pieces);
-            $this->addDefaultQualityIfNoneSpecified();
+            $this->params = new Params($pieces);
         }
     }
 
@@ -91,7 +90,7 @@ abstract class Value
     public function __toString()
     {
         $str = $this->getValue();
-        $str = $this->joinParameters($str, $this->params);
+        $str = $this->joinParameters($str);
 
         return $str;
     }
@@ -146,76 +145,27 @@ abstract class Value
     }
 
     /**
-     * @param $pieces
-     */
-    protected function addParams(array $pieces)
-    {
-        foreach ($pieces as $piece) {
-            $param = explode("=", $piece);
-            if (count($param) === 2) {
-                $this->addParam($param[0], $param[1]);
-            }
-        }
-    }
-
-    /**
-     * @param \ContentNegotiation\AcceptHeader\Param $param
-     */
-    protected function addParam($name, $value)
-    {
-        $param = new Param($name, $value);
-
-        array_push($this->params, $param);
-    }
-
-    /**
      * @param $name
      * @return \ContentNegotiation\AcceptHeader\Param|null
      */
     public function getParam($name)
     {
-        $param = null;
-
-        foreach ($this->params as $p) {
-            /** @var $p Param */
-            if ($p->getName() === $name) {
-                $param = $p;
-                break;
-            }
-        }
-
-        return $param;
+        return $this->params->getParam($name);
     }
 
     /**
      * @param string $str
-     * @param array $params
      * @return string
      */
-    protected function joinParameters($str, array $params)
+    protected function joinParameters($str)
     {
-        $strParams = "";
-
-        foreach ($params as $param) {
-            if (!empty($strParams)) {
-                $strParams .= ";";
-            }
-            $strParams .= (string)$param;
-        };
-
         if (!empty($str)) {
-            $str .= !empty($params) ? ';' . $strParams : '';
+            $str .= ($this->params->count() > 0) ? ';' . (string)$this->params : '';
         }
 
         return $str;
     }
 
-    private function addDefaultQualityIfNoneSpecified()
-    {
-        if (!$this->getParam('q')) {
-            $this->addParam('q', $this->defaultQuality);
-        }
-    }
 
     /**
      * @return int
