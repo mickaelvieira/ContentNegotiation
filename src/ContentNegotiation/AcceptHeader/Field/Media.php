@@ -10,16 +10,16 @@
  * file that was distributed with this source code.
  */
 
-namespace ContentNegotiation\AcceptHeader\Values;
+namespace ContentNegotiation\AcceptHeader\Field;
 
 use ContentNegotiation\AcceptHeader\Value;
-use ContentNegotiation\AcceptHeader\Values;
+use ContentNegotiation\AcceptHeader\Field;
 
 /**
  * Class Media
  * @package ContentNegotiation\AcceptHeader\JsonCollection
  */
-class Media extends Values
+class Media extends Field
 {
     /**
      * {@inheritdoc}

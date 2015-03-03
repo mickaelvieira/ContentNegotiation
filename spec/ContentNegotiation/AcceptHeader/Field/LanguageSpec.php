@@ -1,20 +1,20 @@
 <?php
 
-namespace spec\ContentNegotiation\AcceptHeader\Values;
+namespace spec\ContentNegotiation\AcceptHeader\Field;
 
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
 
 /**
  * Class LanguageSpec
- * @package spec\ContentNegotiation\AcceptHeader\Values
+ * @package spec\ContentNegotiation\AcceptHeader\Field
  */
 class LanguageSpec extends ObjectBehavior
 {
     function it_is_initializable()
     {
         $this->beConstructedWith(null);
-        $this->shouldHaveType('ContentNegotiation\AcceptHeader\Values\Language');
+        $this->shouldHaveType('ContentNegotiation\AcceptHeader\Field\Language');
     }
 
     function it_should_return_the_accept_all_tag_when_the_header_string_is_null()

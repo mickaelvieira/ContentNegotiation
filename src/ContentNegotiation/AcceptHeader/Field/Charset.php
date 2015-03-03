@@ -10,15 +10,15 @@
  * file that was distributed with this source code.
  */
 
-namespace ContentNegotiation\AcceptHeader\Values;
+namespace ContentNegotiation\AcceptHeader\Field;
 
-use ContentNegotiation\AcceptHeader\Values;
+use ContentNegotiation\AcceptHeader\Field;
 
 /**
- * Class Language
+ * Class Charset
  * @package ContentNegotiation\AcceptHeader\JsonCollection
  */
-class Language extends Values
+class Charset extends Field
 {
     /**
      * {@inheritdoc}
@@ -28,5 +28,13 @@ class Language extends Values
     /**
      * {@inheritdoc}
      */
-    protected $entityType = 'Language';
+    protected $entityType = 'Charset';
+
+    /**
+     * {@inheritdoc}
+     */
+    public function hasAcceptAllSubTag($tag)
+    {
+        return false;
+    }
 }

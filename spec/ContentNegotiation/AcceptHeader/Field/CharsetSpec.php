@@ -1,20 +1,20 @@
 <?php
 
-namespace spec\ContentNegotiation\AcceptHeader\Values;
+namespace spec\ContentNegotiation\AcceptHeader\Field;
 
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
 
 /**
  * Class CharsetSpec
- * @package spec\ContentNegotiation\AcceptHeader\Values
+ * @package spec\ContentNegotiation\AcceptHeader\Field
  */
 class CharsetSpec extends ObjectBehavior
 {
     function it_is_initializable()
     {
         $this->beConstructedWith(null);
-        $this->shouldHaveType('ContentNegotiation\AcceptHeader\Values\Charset');
+        $this->shouldHaveType('ContentNegotiation\AcceptHeader\Field\Charset');
     }
 
     function it_should_return_the_default_charset_when_the_header_string_is_null()

@@ -15,10 +15,10 @@ namespace ContentNegotiation\AcceptHeader;
 use ContentNegotiation\AcceptHeader;
 
 /**
- * Class Values
+ * Class Field
  * @package ContentNegotiation\AcceptHeader
  */
-abstract class Values extends Collection implements AcceptHeader, \Countable  // renaming this class Field
+abstract class Field implements AcceptHeader, \IteratorAggregate, \Countable
 {
     /**
      * @var string
@@ -29,6 +29,19 @@ abstract class Values extends Collection implements AcceptHeader, \Countable  //
      * @var string
      */
     protected $entityType;
+
+    /**
+     * @var array
+     */
+    protected $values = [];
+
+    /**
+     * @return \ArrayIterator|\Traversable
+     */
+    public function getIterator()
+    {
+        return new \ArrayIterator($this->values);
+    }
 
     /**
      * @param string $headers
@@ -44,7 +57,7 @@ abstract class Values extends Collection implements AcceptHeader, \Countable  //
      */
     public function count()
     {
-        return count($this->entities);
+        return count($this->values);
     }
 
     /**
@@ -52,7 +65,7 @@ abstract class Values extends Collection implements AcceptHeader, \Countable  //
      */
     public function hasAcceptAllTag()
     {
-        $result = array_filter($this->entities, function ($entity) {
+        $result = array_filter($this->values, function ($entity) {
             /* @var Value $entity */
             return $entity->hasAcceptAllTag();
         });
@@ -64,7 +77,7 @@ abstract class Values extends Collection implements AcceptHeader, \Countable  //
      */
     public function hasAcceptAllSubTag($tag)
     {
-        $result = array_filter($this->entities, function ($entity) use ($tag) {
+        $result = array_filter($this->values, function ($entity) use ($tag) {
             /* @var Value $entity */
             return $entity->hasTag($tag) && $entity->hasAcceptAllSubTag();
         });
@@ -77,7 +90,7 @@ abstract class Values extends Collection implements AcceptHeader, \Countable  //
      */
     public function hasTag($tag)
     {
-        $result = array_filter($this->entities, function ($entity) use ($tag) {
+        $result = array_filter($this->values, function ($entity) use ($tag) {
             /* @var Value $entity */
             return $entity->hasTag($tag);
         });
@@ -90,7 +103,7 @@ abstract class Values extends Collection implements AcceptHeader, \Countable  //
      */
     public function hasSubTag($subTag)
     {
-        $result = array_filter($this->entities, function ($entity) use ($subTag) {
+        $result = array_filter($this->values, function ($entity) use ($subTag) {
             /* @var Value $entity */
             return $entity->hasSubTag($subTag);
         });
@@ -103,7 +116,7 @@ abstract class Values extends Collection implements AcceptHeader, \Countable  //
      */
     public function hasValue($value) // hasExactValue
     {
-        $result = array_filter($this->entities, function ($entity) use ($value) {
+        $result = array_filter($this->values, function ($entity) use ($value) {
             /* @var Value $entity */
             return $entity->hasValue($value);
         });
@@ -116,7 +129,7 @@ abstract class Values extends Collection implements AcceptHeader, \Countable  //
     public function findFirstMatchingValue(array $values)
     {
         $match = null;
-        foreach ($this->entities as $value) {
+        foreach ($this->values as $value) {
             /** @var Value $value */
             if (array_search($value->getValue(), $values, true) !== false) {
                 $match = $value;
@@ -149,7 +162,7 @@ abstract class Values extends Collection implements AcceptHeader, \Countable  //
     public function __toString()
     {
         $str = "";
-        foreach ($this->entities as $entity) {
+        foreach ($this->values as $entity) {
             if (!empty($str)) {
                 $str .= ",";
             }
@@ -170,7 +183,7 @@ abstract class Values extends Collection implements AcceptHeader, \Countable  //
             /** @var Value $entity */
             $entity = $this->getEntityInstance($value, $this->count());
             if ($entity && $entity->getQuality() > 0) {
-                array_push($this->entities, $entity);
+                array_push($this->values, $entity);
             }
         }
         $this->addDefaultValueIfNoneIsDefined();
@@ -181,16 +194,16 @@ abstract class Values extends Collection implements AcceptHeader, \Countable  //
      */
     protected function addDefaultValueIfNoneIsDefined()
     {
-        if (count($this->entities) === 0) {
+        if (count($this->values) === 0) {
             $valueRange = $this->getEntityInstance($this->defaultValue, $this->count());
-            array_push($this->entities, $valueRange);
+            array_push($this->values, $valueRange);
         }
     }
 
     protected function sort()
     {
-        usort($this->entities, [$this, 'sortCallback']);
-        $this->entities = array_reverse($this->entities);
+        usort($this->values, [$this, 'sortCallback']);
+        $this->values = array_reverse($this->values);
     }
 
     /**

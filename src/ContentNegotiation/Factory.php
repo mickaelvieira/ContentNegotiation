@@ -48,7 +48,7 @@ final class Factory
      */
     private function getAcceptHeaderClassName($name)
     {
-        return __NAMESPACE__ . "\\AcceptHeader\\Values\\" . self::getClassName($name);
+        return __NAMESPACE__ . "\\AcceptHeader\\Field\\" . self::getClassName($name);
     }
 
     /**
