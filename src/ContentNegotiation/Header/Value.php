@@ -19,7 +19,7 @@ namespace ContentNegotiation\Header;
 abstract class Value
 {
     /**
-     * @var \ContentNegotiation\AcceptHeader\ValueRange
+     * @var \ContentNegotiation\Header\ValueRange
      */
     protected $valueRange;
 
@@ -148,7 +148,7 @@ abstract class Value
 
     /**
      * @param $name
-     * @return \ContentNegotiation\AcceptHeader\Param|null
+     * @return \ContentNegotiation\Header\Param|null
      */
     public function getParam($name)
     {

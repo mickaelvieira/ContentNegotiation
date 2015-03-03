@@ -12,7 +12,6 @@
 
 namespace ContentNegotiation\Header\Value;
 
-use ContentNegotiation\Header\Param;
 use ContentNegotiation\Header\Value;
 
 /**

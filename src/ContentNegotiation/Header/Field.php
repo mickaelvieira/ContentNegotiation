@@ -237,7 +237,7 @@ abstract class Field implements AcceptHeader, \IteratorAggregate, \Countable
     /**
      * @param int $index
      * @param string $value
-     * @return \ContentNegotiation\AcceptHeader\Value
+     * @return \ContentNegotiation\Header\Value
      */
     protected function getEntityInstance($index, $value)
     {
@@ -250,7 +250,7 @@ abstract class Field implements AcceptHeader, \IteratorAggregate, \Countable
      */
     protected function getValueDelimiter()
     {
-        /** @var \ContentNegotiation\AcceptHeader\Value $className */
+        /** @var \ContentNegotiation\Header\Value $className */
         $className = $this->getValueClassName();
         return $className::getDelimiter();
     }

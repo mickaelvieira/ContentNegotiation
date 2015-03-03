@@ -83,7 +83,7 @@ class Params implements \Countable, \IteratorAggregate
 
     /**
      * @param string $name
-     * @return \ContentNegotiation\AcceptHeader\Param|null
+     * @return \ContentNegotiation\Header\Param|null
      */
     public function getParam($name)
     {
