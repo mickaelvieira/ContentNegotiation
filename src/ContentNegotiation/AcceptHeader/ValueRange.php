@@ -69,6 +69,7 @@ final class ValueRange
             'subValue' => $this->subValue,
         ];
     }
+
     /**
      * @return string
      */

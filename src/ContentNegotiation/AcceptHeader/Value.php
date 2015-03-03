@@ -24,11 +24,6 @@ abstract class Value
     protected $valueRange;
 
     /**
-     * @var float
-     */
-    protected $defaultQuality = 1;
-
-    /**
      * @var string
      */
     protected static $delimiter = "";
@@ -37,6 +32,7 @@ abstract class Value
      * @var
      */
     protected $params;
+
     /**
      * @var int
      */
@@ -89,9 +85,15 @@ abstract class Value
      */
     public function __toString()
     {
-        $str = $this->getValue();
-        $str = $this->joinParameters($str);
-
+        if ($this->getValue()) {
+            if ($this->params->count() > 0) {
+                $str = sprintf('%s;%s', $this->valueRange, $this->params);
+            } else {
+                $str = sprintf('%s', $this->valueRange);
+            }
+        } else {
+            $str = "";
+        }
         return $str;
     }
 
@@ -130,7 +132,7 @@ abstract class Value
      * @param string $value
      * @return bool
      */
-    public function hasValue($value)
+    public function hasValue($value) // isEqualTo
     {
         return ((string)$this->valueRange === $value);
     }
@@ -152,20 +154,6 @@ abstract class Value
     {
         return $this->params->getParam($name);
     }
-
-    /**
-     * @param string $str
-     * @return string
-     */
-    protected function joinParameters($str)
-    {
-        if (!empty($str)) {
-            $str .= ($this->params->count() > 0) ? ';' . (string)$this->params : '';
-        }
-
-        return $str;
-    }
-
 
     /**
      * @return int

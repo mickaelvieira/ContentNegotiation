@@ -45,7 +45,7 @@ class Media extends Values
             $len2 = strlen((string)$val2);
 
             if ($len1 === $len2) {
-                $result = ($val1->getIndex() < $val2->getIndex()) ? 1 : -1;
+                $result = ($val1->getIndex() < $val2->getIndex()) ? 1 : -1; // <- louche
             } elseif ($len1 < $len2) {
                 $result = -1;
             } else {

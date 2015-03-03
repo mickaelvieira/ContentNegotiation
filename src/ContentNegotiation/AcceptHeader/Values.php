@@ -18,7 +18,7 @@ use ContentNegotiation\AcceptHeader;
  * Class Values
  * @package ContentNegotiation\AcceptHeader
  */
-abstract class Values extends Collection implements AcceptHeader, \Countable
+abstract class Values extends Collection implements AcceptHeader, \Countable  // renaming this class Field
 {
     /**
      * @var string
@@ -39,10 +39,14 @@ abstract class Values extends Collection implements AcceptHeader, \Countable
         $this->sort();
     }
 
+    /**
+     * @return int
+     */
     public function count()
     {
         return count($this->entities);
     }
+
     /**
      * {@inheritdoc}
      */
@@ -97,7 +101,7 @@ abstract class Values extends Collection implements AcceptHeader, \Countable
      * @param string $value
      * @return bool
      */
-    public function hasValue($value)
+    public function hasValue($value) // hasExactValue
     {
         $result = array_filter($this->entities, function ($entity) use ($value) {
             /* @var Value $entity */
