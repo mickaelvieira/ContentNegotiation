@@ -120,19 +120,19 @@ abstract class Value
     }
 
     /**
-     * @param string $subSubTag
+     * @param string $subTag
      * @return bool
      */
-    public function hasSubTag($subSubTag)
+    public function hasSubTag($subTag)
     {
-        return ($this->valueRange->getSubValue() === $subSubTag);
+        return ($this->valueRange->getSubValue() === $subTag);
     }
 
     /**
      * @param string $value
      * @return bool
      */
-    public function hasValue($value) // isEqualTo
+    public function isEqual($value) // isEqualTo
     {
         return ((string)$this->valueRange === $value);
     }

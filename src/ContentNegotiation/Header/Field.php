@@ -118,7 +118,7 @@ abstract class Field implements AcceptHeader, \IteratorAggregate, \Countable
     {
         $result = array_filter($this->values, function ($entity) use ($value) {
             /* @var Value $entity */
-            return $entity->hasValue($value);
+            return $entity->isEqual($value);
         });
         return (count($result) > 0);
     }

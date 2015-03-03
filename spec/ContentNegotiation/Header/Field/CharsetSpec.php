@@ -1,6 +1,6 @@
 <?php
 
-namespace spec\ContentNegotiation\AcceptHeader\Field;
+namespace spec\ContentNegotiation\Header\Field;
 
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
@@ -14,7 +14,7 @@ class CharsetSpec extends ObjectBehavior
     function it_is_initializable()
     {
         $this->beConstructedWith(null);
-        $this->shouldHaveType('ContentNegotiation\AcceptHeader\Field\Charset');
+        $this->shouldHaveType('ContentNegotiation\Header\Field\Charset');
     }
 
     function it_should_return_the_default_charset_when_the_header_string_is_null()
@@ -68,7 +68,7 @@ class CharsetSpec extends ObjectBehavior
     function it_should_return_the_first_matching_value()
     {
         $this->beConstructedWith('utf-8, utf-7, *;q=0.3, iso-8859-1, unicode-1-1;q=0.8');
-        $this->findFirstMatchingValue(['utf-8', 'utf-7'])->shouldHaveType('ContentNegotiation\AcceptHeader\Value\Charset');
+        $this->findFirstMatchingValue(['utf-8', 'utf-7'])->shouldHaveType('ContentNegotiation\Header\Value\Charset');
         $this->findFirstMatchingValue(['utf-8', 'utf-7'])->getValue()->shouldBeEqualTo('utf-8');
     }
 

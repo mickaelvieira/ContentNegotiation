@@ -75,7 +75,6 @@ class LanguageSpec extends ObjectBehavior
     function it_should_be_aware_of_having_a_value_range()
     {
         $this->beConstructedWith('fr-be');
-        $this->shouldHaveValue('fr-be');
-        $this->shouldNotHaveValue('fr');
+        $this->shouldBeEqual('fr-be');
     }
 }

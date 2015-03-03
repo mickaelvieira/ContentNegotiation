@@ -1,6 +1,6 @@
 <?php
 
-namespace spec\ContentNegotiation\AcceptHeader\Field;
+namespace spec\ContentNegotiation\Header\Field;
 
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
@@ -14,7 +14,7 @@ class LanguageSpec extends ObjectBehavior
     function it_is_initializable()
     {
         $this->beConstructedWith(null);
-        $this->shouldHaveType('ContentNegotiation\AcceptHeader\Field\Language');
+        $this->shouldHaveType('ContentNegotiation\Header\Field\Language');
     }
 
     function it_should_return_the_accept_all_tag_when_the_header_string_is_null()
@@ -63,7 +63,7 @@ class LanguageSpec extends ObjectBehavior
     {
         $this->beConstructedWith('es-ES;q=0.7, es;q=0.6, fr;q=1.0, *;q=0.3, fr-CH');
         $this->findFirstMatchingValue(['fr-CH', 'fr-FR'])
-            ->shouldHaveType('ContentNegotiation\AcceptHeader\Value\Language');
+            ->shouldHaveType('ContentNegotiation\Header\Value\Language');
         $this->findFirstMatchingValue(['fr-CH', 'fr-FR'])->getValue()->shouldBeEqualTo('fr-CH');
     }
 

@@ -1,6 +1,6 @@
 <?php
 
-namespace spec\ContentNegotiation\AcceptHeader\Field;
+namespace spec\ContentNegotiation\Header\Field;
 
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
@@ -18,7 +18,7 @@ class MediaSpec extends ObjectBehavior
     function it_is_initializable()
     {
         $this->beConstructedWith(null);
-        $this->shouldHaveType('ContentNegotiation\AcceptHeader\Field\Media');
+        $this->shouldHaveType('ContentNegotiation\Header\Field\Media');
     }
 
     function it_should_return_the_accept_all_tag_when_the_header_string_is_null()
@@ -60,7 +60,7 @@ class MediaSpec extends ObjectBehavior
     function it_should_return_the_first_matching_value()
     {
         $this->beConstructedWith('audio/webm, audio/ogg, audio/wav, audio/*;q=0.9, application/ogg;q=0.7, video/*;q=0.6; */*;q=0.5');
-        $this->findFirstMatchingValue(['audio/ogg', 'audio/wav'])->shouldHaveType('ContentNegotiation\AcceptHeader\Value\Media');
+        $this->findFirstMatchingValue(['audio/ogg', 'audio/wav'])->shouldHaveType('ContentNegotiation\Header\Value\Media');
         $this->findFirstMatchingValue(['audio/ogg', 'audio/wav'])->getValue()->shouldBeEqualTo('audio/ogg');
     }
 

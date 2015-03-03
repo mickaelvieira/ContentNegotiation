@@ -93,8 +93,7 @@ class MediaSpec extends ObjectBehavior
     function it_should_be_aware_of_having_a_value_range()
     {
         $this->beConstructedWith('application/*;q=0.4');
-        $this->shouldHaveValue('application/*');
-        $this->shouldNotHaveValue('json');
+        $this->shouldBeEqual('application/*');
     }
 
     function it_should_return_a_parameter_by_name()
