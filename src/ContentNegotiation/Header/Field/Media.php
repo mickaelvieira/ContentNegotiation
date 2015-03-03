@@ -10,14 +10,14 @@
  * file that was distributed with this source code.
  */
 
-namespace ContentNegotiation\AcceptHeader\Field;
+namespace ContentNegotiation\Header\Field;
 
-use ContentNegotiation\AcceptHeader\Value;
-use ContentNegotiation\AcceptHeader\Field;
+use ContentNegotiation\Header\Value;
+use ContentNegotiation\Header\Field;
 
 /**
  * Class Media
- * @package ContentNegotiation\AcceptHeader\JsonCollection
+ * @package ContentNegotiation\Header\JsonCollection
  */
 class Media extends Field
 {

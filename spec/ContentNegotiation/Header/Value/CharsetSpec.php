@@ -1,13 +1,13 @@
 <?php
 
-namespace spec\ContentNegotiation\AcceptHeader\Value;
+namespace spec\ContentNegotiation\Header\Value;
 
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
 
 /**
  * Class CharsetSpec
- * @package spec\ContentNegotiation\AcceptHeader\Value
+ * @package spec\ContentNegotiation\Header\Value
  */
 class CharsetSpec extends ObjectBehavior
 {
@@ -20,7 +20,7 @@ class CharsetSpec extends ObjectBehavior
     function it_is_initializable()
     {
         $this->beConstructedWith('');
-        $this->shouldHaveType('ContentNegotiation\AcceptHeader\Value\Charset');
+        $this->shouldHaveType('ContentNegotiation\Header\Value\Charset');
     }
 
     function it_should_return_an_empty_string_when_input_is_empty()

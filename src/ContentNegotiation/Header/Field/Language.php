@@ -10,26 +10,23 @@
  * file that was distributed with this source code.
  */
 
-namespace ContentNegotiation\AcceptHeader\Value;
+namespace ContentNegotiation\Header\Field;
 
-use ContentNegotiation\AcceptHeader\Value;
+use ContentNegotiation\Header\Field;
 
 /**
  * Class Language
- * @package ContentNegotiation\AcceptHeader\Value
+ * @package ContentNegotiation\Header\JsonCollection
  */
-class Language extends Value
+class Language extends Field
 {
     /**
-     * @var string
+     * {@inheritdoc}
      */
-    public static $delimiter = "-";
+    protected $defaultValue = '*';
 
     /**
      * {@inheritdoc}
      */
-    public function hasAcceptAllSubTag()
-    {
-        return $this->hasSubTag(null);
-    }
+    protected $entityType = 'Language';
 }

@@ -12,7 +12,7 @@ use Prophecy\Argument;
 class LanguageSpec extends ObjectBehavior
 {
     /**
-     * @param \ContentNegotiation\AcceptHeader\Field\Language $collection
+     * @param \ContentNegotiation\Header\Field\Language $collection
      */
     function let($collection)
     {
@@ -25,8 +25,8 @@ class LanguageSpec extends ObjectBehavior
     }
 
     /**
-     * @param \ContentNegotiation\AcceptHeader\Field\Language $collection
-     * @param \ContentNegotiation\AcceptHeader\Value\Language $value
+     * @param \ContentNegotiation\Header\Field\Language $collection
+     * @param \ContentNegotiation\Header\Value\Language $value
      */
     function it_should_return_the_language_when_it_matches_a_supported_language($collection, $value)
     {

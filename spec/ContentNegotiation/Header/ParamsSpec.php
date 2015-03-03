@@ -1,6 +1,6 @@
 <?php
 
-namespace spec\ContentNegotiation\AcceptHeader;
+namespace spec\ContentNegotiation\Header;
 
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
@@ -17,7 +17,7 @@ class ParamsSpec extends ObjectBehavior
 
     function it_is_initializable()
     {
-        $this->shouldHaveType('ContentNegotiation\AcceptHeader\Params');
+        $this->shouldHaveType('ContentNegotiation\Header\Params');
     }
 
     function it_should_be_countable()
@@ -37,9 +37,9 @@ class ParamsSpec extends ObjectBehavior
 
     function it_should_return_all_params()
     {
-        $param1 = new \ContentNegotiation\AcceptHeader\Param('name1', 'value1');
-        $param2 = new \ContentNegotiation\AcceptHeader\Param('name2', 'value2');
-        $param3 = new \ContentNegotiation\AcceptHeader\Param('q', '1');
+        $param1 = new \ContentNegotiation\Header\Param('name1', 'value1');
+        $param2 = new \ContentNegotiation\Header\Param('name2', 'value2');
+        $param3 = new \ContentNegotiation\Header\Param('q', '1');
 
         $this->getParams()->shouldBeLike([$param1, $param2, $param3]);
     }

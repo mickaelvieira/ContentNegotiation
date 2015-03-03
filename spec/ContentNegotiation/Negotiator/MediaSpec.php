@@ -12,7 +12,7 @@ use Prophecy\Argument;
 class MediaSpec extends ObjectBehavior
 {
     /**
-     * @param \ContentNegotiation\AcceptHeader\Field\Media $collection
+     * @param \ContentNegotiation\Header\Field\Media $collection
      */
     function let($collection)
     {
@@ -25,8 +25,8 @@ class MediaSpec extends ObjectBehavior
     }
 
     /**
-     * @param \ContentNegotiation\AcceptHeader\Field\Media $collection
-     * @param \ContentNegotiation\AcceptHeader\Value\Media $value
+     * @param \ContentNegotiation\Header\Field\Media $collection
+     * @param \ContentNegotiation\Header\Value\Media $value
      */
     function it_should_return_the_media_type_when_it_matches_a_supported_media_type($collection, $value)
     {

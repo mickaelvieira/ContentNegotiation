@@ -13,8 +13,8 @@
 namespace ContentNegotiation;
 
 /**
- * Interface AcceptHeader
- * @package ContentNegotiation\AcceptHeader
+ * Interface Header
+ * @package ContentNegotiation\Header
  */
 interface AcceptHeader
 {

@@ -10,13 +10,13 @@
  * file that was distributed with this source code.
  */
 
-namespace ContentNegotiation\AcceptHeader;
+namespace ContentNegotiation\Header;
 
 use ContentNegotiation\AcceptHeader;
 
 /**
  * Class Field
- * @package ContentNegotiation\AcceptHeader
+ * @package ContentNegotiation\Header
  */
 abstract class Field implements AcceptHeader, \IteratorAggregate, \Countable
 {

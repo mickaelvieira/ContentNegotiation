@@ -7,7 +7,7 @@ use Prophecy\Argument;
 
 /**
  * Class CharsetSpec
- * @package spec\ContentNegotiation\AcceptHeader\Field
+ * @package spec\ContentNegotiation\Header\Field
  */
 class CharsetSpec extends ObjectBehavior
 {

@@ -1,13 +1,13 @@
 <?php
 
-namespace spec\ContentNegotiation\AcceptHeader;
+namespace spec\ContentNegotiation\Header;
 
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
 
 /**
  * Class ValueRangeSpec
- * @package spec\ContentNegotiation\AcceptHeader
+ * @package spec\ContentNegotiation\Header
  */
 class ValueRangeSpec extends ObjectBehavior
 {

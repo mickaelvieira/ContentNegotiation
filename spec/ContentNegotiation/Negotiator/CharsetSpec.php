@@ -12,7 +12,7 @@ use Prophecy\Argument;
 class CharsetSpec extends ObjectBehavior
 {
     /**
-     * @param \ContentNegotiation\AcceptHeader\Field\Charset $collection
+     * @param \ContentNegotiation\Header\Field\Charset $collection
      */
     function let($collection)
     {
@@ -25,8 +25,8 @@ class CharsetSpec extends ObjectBehavior
     }
 
     /**
-     * @param \ContentNegotiation\AcceptHeader\Field\Charset $collection
-     * @param \ContentNegotiation\AcceptHeader\Value\Charset $value
+     * @param \ContentNegotiation\Header\Field\Charset $collection
+     * @param \ContentNegotiation\Header\Value\Charset $value
      */
     function it_should_return_the_charset_when_it_matches_a_supported_charset($collection, $value)
     {

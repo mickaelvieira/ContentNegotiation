@@ -1,13 +1,13 @@
 <?php
 
-namespace spec\ContentNegotiation\AcceptHeader\Value;
+namespace spec\ContentNegotiation\Header\Value;
 
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
 
 /**
  * Class LanguageSpec
- * @package spec\ContentNegotiation\AcceptHeader\Value
+ * @package spec\ContentNegotiation\Header\Value
  */
 class LanguageSpec extends ObjectBehavior
 {
@@ -21,7 +21,7 @@ class LanguageSpec extends ObjectBehavior
     function it_is_initializable()
     {
         $this->beConstructedWith('');
-        $this->shouldHaveType('ContentNegotiation\AcceptHeader\Value\Language');
+        $this->shouldHaveType('ContentNegotiation\Header\Value\Language');
     }
 
     function it_should_return_an_empty_string_when_input_is_empty()

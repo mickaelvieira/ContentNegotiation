@@ -10,30 +10,20 @@
  * file that was distributed with this source code.
  */
 
-namespace ContentNegotiation\AcceptHeader\Field;
+namespace ContentNegotiation\Header\Value;
 
-use ContentNegotiation\AcceptHeader\Field;
+use ContentNegotiation\Header\Value;
 
 /**
  * Class Charset
- * @package ContentNegotiation\AcceptHeader\JsonCollection
+ * @package ContentNegotiation\Header\Value
  */
-class Charset extends Field
+class Charset extends Value
 {
     /**
      * {@inheritdoc}
      */
-    protected $defaultValue = '*';
-
-    /**
-     * {@inheritdoc}
-     */
-    protected $entityType = 'Charset';
-
-    /**
-     * {@inheritdoc}
-     */
-    public function hasAcceptAllSubTag($tag)
+    public function hasAcceptAllSubTag()
     {
         return false;
     }

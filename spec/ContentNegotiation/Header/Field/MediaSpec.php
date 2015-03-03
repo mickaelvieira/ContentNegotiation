@@ -7,7 +7,7 @@ use Prophecy\Argument;
 
 /**
  * Class MediaSpec
- * @package spec\ContentNegotiation\AcceptHeader\Field
+ * @package spec\ContentNegotiation\Header\Field
  */
 class MediaSpec extends ObjectBehavior
 {

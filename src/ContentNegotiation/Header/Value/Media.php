@@ -10,14 +10,14 @@
  * file that was distributed with this source code.
  */
 
-namespace ContentNegotiation\AcceptHeader\Value;
+namespace ContentNegotiation\Header\Value;
 
-use ContentNegotiation\AcceptHeader\Param;
-use ContentNegotiation\AcceptHeader\Value;
+use ContentNegotiation\Header\Param;
+use ContentNegotiation\Header\Value;
 
 /**
  * Class Media
- * @package ContentNegotiation\AcceptHeader\Value
+ * @package ContentNegotiation\Header\Value
  */
 class Media extends Value
 {

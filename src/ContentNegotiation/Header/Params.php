@@ -10,11 +10,11 @@
  * file that was distributed with this source code.
  */
 
-namespace ContentNegotiation\AcceptHeader;
+namespace ContentNegotiation\Header;
 
 /**
  * Class Params
- * @package ContentNegotiation\AcceptHeader
+ * @package ContentNegotiation\Header
  */
 class Params implements \Countable, \IteratorAggregate
 {

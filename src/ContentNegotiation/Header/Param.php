@@ -10,11 +10,11 @@
  * file that was distributed with this source code.
  */
 
-namespace ContentNegotiation\AcceptHeader;
+namespace ContentNegotiation\Header;
 
 /**
  * Class Param
- * @package ContentNegotiation\AcceptHeader
+ * @package ContentNegotiation\Header
  */
 final class Param
 {

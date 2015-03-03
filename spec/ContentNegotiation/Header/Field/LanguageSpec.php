@@ -7,7 +7,7 @@ use Prophecy\Argument;
 
 /**
  * Class LanguageSpec
- * @package spec\ContentNegotiation\AcceptHeader\Field
+ * @package spec\ContentNegotiation\Header\Field
  */
 class LanguageSpec extends ObjectBehavior
 {
