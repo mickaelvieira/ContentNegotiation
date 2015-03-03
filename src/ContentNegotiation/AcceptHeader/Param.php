@@ -59,9 +59,6 @@ final class Param
      */
     public function __toString()
     {
-        if ($this->name === 'q') {
-            $this->value = sprintf("%g", $this->value);
-        }
         return sprintf("%s=%s", $this->name, $this->value);
     }
 }

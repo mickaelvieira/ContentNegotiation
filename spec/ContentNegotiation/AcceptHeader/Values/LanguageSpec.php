@@ -43,13 +43,13 @@ class LanguageSpec extends ObjectBehavior
 
     function it_should_sort_the_entities()
     {
-        $this->beConstructedWith('es-ES;q=0.7, es; q=0.6 ,fr; q=1.0, en; q=0.5,da , fr-BE');
+        $this->beConstructedWith('es-ES;q=0.7, es; q=0.6 ,fr; q=1, en; q=0.5,da , fr-BE');
         $this->__toString()->shouldBeEqualTo('fr;q=1,da;q=1,fr-BE;q=1,es-ES;q=0.7,es;q=0.6,en;q=0.5');
     }
 
     function it_should_sort_the_entities_with_accept_all_tag()
     {
-        $this->beConstructedWith('es-ES;q=0.7, es; q=0.6 ,fr; q=1.0, *;q=0.3, fr-CH');
+        $this->beConstructedWith('es-ES;q=0.7, es; q=0.6 ,fr; q=1, *;q=0.3, fr-CH');
         $this->__toString()->shouldBeEqualTo('fr;q=1,fr-CH;q=1,es-ES;q=0.7,es;q=0.6,*;q=0.3');
     }
 
