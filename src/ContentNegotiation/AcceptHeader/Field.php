@@ -114,7 +114,7 @@ abstract class Field implements AcceptHeader, \IteratorAggregate, \Countable
      * @param string $value
      * @return bool
      */
-    public function hasValue($value) // hasExactValue
+    public function hasExactValue($value)
     {
         $result = array_filter($this->values, function ($entity) use ($value) {
             /* @var Value $entity */

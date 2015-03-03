@@ -48,8 +48,7 @@ class MediaSpec extends ObjectBehavior
     function it_should_be_aware_of_having_a_value_range()
     {
         $this->beConstructedWith('audio/webm, audio/ogg, audio/wav, audio/*;q=0.9, application/ogg;q=0.7, video/*;q=0.6; */*;q=0.5');
-        $this->shouldHaveValue('audio/ogg');
-        $this->shouldNotHaveValue('text/html');
+        $this->shouldHaveExactValue('audio/ogg');
     }
 
     function it_should_sort_the_entities()

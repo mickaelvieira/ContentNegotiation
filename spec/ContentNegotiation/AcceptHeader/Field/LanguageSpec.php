@@ -56,8 +56,7 @@ class LanguageSpec extends ObjectBehavior
     function it_should_be_aware_of_having_a_value_range()
     {
         $this->beConstructedWith('es-ES;q=0.7, es; q=0.6 ,fr; q=1.0, *;q=0.3, fr-CH');
-        $this->shouldHaveValue('fr-CH');
-        $this->shouldNotHaveValue('en');
+        $this->shouldHaveExactValue('fr-CH');
     }
     /** broken test reference */
     function it_should_return_the_first_matching_value()
