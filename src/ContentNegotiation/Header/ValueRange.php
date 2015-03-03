@@ -122,7 +122,7 @@ final class ValueRange
      */
     private function setValue($value)
     {
-        $this->value = (string)$value;
+        $this->value = trim($value);
     }
 
     /**
@@ -130,6 +130,6 @@ final class ValueRange
      */
     private function setSubValue($subValue)
     {
-        $this->subValue = (string)$subValue;
+        $this->subValue = trim($subValue);
     }
 }

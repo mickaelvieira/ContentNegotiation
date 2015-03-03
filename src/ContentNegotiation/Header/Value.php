@@ -21,7 +21,7 @@ abstract class Value
     /**
      * @var \ContentNegotiation\Header\ValueRange
      */
-    protected $valueRange;
+    protected $value;
 
     /**
      * @var string
@@ -29,7 +29,7 @@ abstract class Value
     protected static $delimiter = "";
 
     /**
-     * @var
+     * @var \ContentNegotiation\Header\Params
      */
     protected $params;
 
@@ -46,11 +46,11 @@ abstract class Value
     {
         $this->index = (int)$index;
 
-        $pieces = explode(";", $this->cleanHeaderString($pieces));
+        $pieces = explode(";", $pieces);
         $values = array_shift($pieces);
 
         if ($values) {
-            $this->valueRange = new ValueRange($values, static::getDelimiter());
+            $this->value = new ValueRange($values, static::getDelimiter());
             $this->params = new Params($pieces);
         }
     }
@@ -77,7 +77,7 @@ abstract class Value
      */
     public function getValue()
     {
-        return (string)$this->valueRange;
+        return (string)$this->value;
     }
 
     /**
@@ -87,9 +87,9 @@ abstract class Value
     {
         if ($this->getValue()) {
             if ($this->params->count() > 0) {
-                $str = sprintf('%s;%s', $this->valueRange, $this->params);
+                $str = sprintf('%s;%s', $this->value, $this->params);
             } else {
-                $str = sprintf('%s', $this->valueRange);
+                $str = sprintf('%s', $this->value);
             }
         } else {
             $str = "";
@@ -102,7 +102,7 @@ abstract class Value
      */
     public function hasAcceptAllTag()
     {
-        return ($this->valueRange->getValue() === '*');
+        return ($this->value->getValue() === '*');
     }
 
     /**
@@ -116,7 +116,7 @@ abstract class Value
      */
     public function hasTag($tag)
     {
-        return ($this->valueRange->getValue() === $tag);
+        return ($this->value->getValue() === $tag);
     }
 
     /**
@@ -125,25 +125,16 @@ abstract class Value
      */
     public function hasSubTag($subTag)
     {
-        return ($this->valueRange->getSubValue() === $subTag);
+        return ($this->value->getSubValue() === $subTag);
     }
 
     /**
      * @param string $value
      * @return bool
      */
-    public function isEqual($value) // isEqualTo
+    public function isEqual($value)
     {
-        return ((string)$this->valueRange === $value);
-    }
-
-    /**
-     * @param string $header
-     * @return string
-     */
-    private function cleanHeaderString($header)
-    {
-        return preg_replace("/\s/", "", (string)$header);
+        return ((string)$this->value === $value);
     }
 
     /**
