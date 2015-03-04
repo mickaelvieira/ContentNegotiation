@@ -29,17 +29,17 @@ final class Param
     protected $value;
 
     /**
-     * @param $name
-     * @param $value
+     * @param string $name
+     * @param string $value
      */
     public function __construct($name, $value)
     {
-        $this->name =  (string)$name;
+        $this->name  = (string)$name;
         $this->value = (string)$value;
     }
 
     /**
-     * @return mixed
+     * @return string
      */
     public function getName()
     {
@@ -47,7 +47,7 @@ final class Param
     }
 
     /**
-     * @return mixed
+     * @return string
      */
     public function getValue()
     {

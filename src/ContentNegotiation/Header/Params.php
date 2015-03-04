@@ -39,7 +39,7 @@ class Params implements \Countable, \IteratorAggregate
                 $this->add($param[0], $param[1]);
             }
         }
-        $this->addDefaultQualityIfNoneSpecified();
+        $this->setQualityParameterToDefaultIfNoneIsSpecified();
     }
 
     /**
@@ -114,7 +114,7 @@ class Params implements \Countable, \IteratorAggregate
     /**
      *
      */
-    private function addDefaultQualityIfNoneSpecified()
+    private function setQualityParameterToDefaultIfNoneIsSpecified()
     {
         if (!$this->getParam('q')) {
             $this->add('q', $this->defaultQuality);
