@@ -84,4 +84,41 @@ class FinderSpec extends ObjectBehavior
         $this::findFirstSupportedValueMatchingAPreferredValueWithAcceptAllSubTag($preferred, $supported)
             ->getValue()->shouldBeEqualTo('audio/ogg');
     }
+
+
+    /**
+     * @param \ContentNegotiation\Header\Value\Media $value1
+     * @param \ContentNegotiation\Header\Value\Media $value2
+     * @param \ContentNegotiation\Header\Value\Media $value3
+     * @param \ContentNegotiation\Header\Field\Media $preferred
+     * @param \ContentNegotiation\Header\Field\Media $supported
+     */
+    function it_should_return_the_first_supported_value_when_clent_accept_all(
+        $value1, $value2, $value3, $preferred, $supported
+    )
+    {
+        $value1->getTag()->willReturn('application');
+        $value1->getValue()->willReturn('application/json');
+        $value2->getTag()->willReturn('text');
+        $value2->getValue()->willReturn('text/html');
+        $value3->getTag()->willReturn('audio');
+        $value3->getValue()->willReturn('audio/ogg');
+
+        $supported->count()->willReturn(3);
+        $supported->getIterator()->willReturn(
+            new \ArrayIterator([
+                $value1->getWrappedObject(),
+                $value2->getWrappedObject(),
+                $value3->getWrappedObject(),
+            ])
+        );
+
+        $preferred->hasAcceptAllTag()->willReturn(true);
+
+        $this::findFirstSupportedValueWhenPreferredValueHasAcceptAllTag($preferred, $supported)
+            ->shouldHaveType('\ContentNegotiation\Header\Value');
+        $this::findFirstSupportedValueWhenPreferredValueHasAcceptAllTag($preferred, $supported)
+            ->getValue()->shouldBeEqualTo('application/json');
+    }
+
 }

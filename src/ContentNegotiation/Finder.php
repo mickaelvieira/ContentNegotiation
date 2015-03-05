@@ -49,4 +49,23 @@ class Finder
         }
         return $match;
     }
+
+    /**
+     * @param \ContentNegotiation\Header\Field $preferred
+     * @param \ContentNegotiation\Header\Field $supported
+     * @return null
+     */
+    public static function findFirstSupportedValueWhenPreferredValueHasAcceptAllTag(
+        Field $preferred,
+        Field $supported
+    ) {
+        $match = null;
+        if ($preferred->hasAcceptAllTag()) {
+            if ($supported->count() > 0) {
+                $values = $supported->getIterator();
+                $match  = $values[0];
+            }
+        }
+        return $match;
+    }
 }
