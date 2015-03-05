@@ -16,7 +16,7 @@ namespace ContentNegotiation\Header;
  * Class Params
  * @package ContentNegotiation\Header
  */
-class Params implements \Countable, \IteratorAggregate
+final class Params implements \Countable, \IteratorAggregate
 {
     /**
      * @var float

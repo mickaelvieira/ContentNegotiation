@@ -19,12 +19,12 @@ namespace ContentNegotiation\Header;
 final class Param
 {
     /**
-     * @var
+     * @var string
      */
     protected $name;
 
     /**
-     * @var
+     * @var string
      */
     protected $value;
 

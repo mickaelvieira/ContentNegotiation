@@ -33,7 +33,7 @@ class Finder
     /**
      * @param \ContentNegotiation\Header\Field $preferred
      * @param \ContentNegotiation\Header\Field $supported
-     * @return null
+     * @return \ContentNegotiation\Header\Value|null
      */
     public static function findFirstSupportedValueMatchingAPreferredValueWithAcceptAllSubTag(
         Field $preferred,
@@ -53,7 +53,7 @@ class Finder
     /**
      * @param \ContentNegotiation\Header\Field $preferred
      * @param \ContentNegotiation\Header\Field $supported
-     * @return null
+     * @return \ContentNegotiation\Header\Value|null
      */
     public static function findFirstSupportedValueWhenPreferredValueHasAcceptAllTag(
         Field $preferred,
