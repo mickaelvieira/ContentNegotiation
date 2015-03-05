@@ -18,7 +18,7 @@ use ContentNegotiation\AcceptHeader;
  * Class Field
  * @package ContentNegotiation\Header
  */
-abstract class Field implements AcceptHeader, \IteratorAggregate, \Countable
+abstract class Field implements \IteratorAggregate, \Countable
 {
     /**
      * @var string

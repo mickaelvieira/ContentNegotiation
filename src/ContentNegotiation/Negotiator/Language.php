@@ -12,6 +12,8 @@
 
 namespace ContentNegotiation\Negotiator;
 
+use ContentNegotiation\Finder;
+use ContentNegotiation\Header\Field;
 use ContentNegotiation\Negotiator;
 use ContentNegotiation\AcceptHeader;
 
@@ -24,14 +26,14 @@ class Language implements Negotiator
     /**
      * @var \ContentNegotiation\AcceptHeader;
      */
-    private $acceptHeader;
+    private $headerField;
 
     /**
-     * @param AcceptHeader $acceptHeader
+     * @param \ContentNegotiation\Header\Field $headerField
      */
-    public function __construct(AcceptHeader $acceptHeader)
+    public function __construct(Field $headerField)
     {
-        $this->acceptHeader = $acceptHeader;
+        $this->headerField = $headerField;
     }
 
     /**
@@ -40,13 +42,13 @@ class Language implements Negotiator
     public function negotiate(array $supported)
     {
         $value = null;
-        if ($value = $this->acceptHeader->findFirstMatchingValue($supported)) {
+        if ($value = $this->headerField->findFirstMatchingValue($supported)) {
             return $value;
         }
-        if ($value = $this->acceptHeader->findFirstMatchingSubValue($supported)) {
+        if ($value = $this->headerField->findFirstMatchingSubValue($supported)) {
             return $value;
         }
-        if ($this->acceptHeader->hasAcceptAllTag() && !empty($supported)) {
+        if ($this->headerField->hasAcceptAllTag() && !empty($supported)) {
             return $supported[0];
         }
         return $value;
