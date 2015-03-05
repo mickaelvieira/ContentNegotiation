@@ -120,12 +120,28 @@ abstract class Value
     }
 
     /**
+     * @return string
+     */
+    public function getTag()
+    {
+        return $this->value->getValue();
+    }
+
+    /**
      * @param string $subTag
      * @return bool
      */
     public function hasSubTag($subTag)
     {
         return ($this->value->getSubValue() === $subTag);
+    }
+
+    /**
+     * @return string
+     */
+    public function getSubTag()
+    {
+        return $this->value->getSubValue();
     }
 
     /**
