@@ -169,4 +169,12 @@ abstract class Value
     {
         return $this->index;
     }
+
+    /**
+     * @return int
+     */
+    public function getLength()
+    {
+        return strlen((string)$this);
+    }
 }

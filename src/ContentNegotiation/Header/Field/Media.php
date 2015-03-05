@@ -41,8 +41,8 @@ class Media extends Field
 
         if ($qua1 == $qua2) {
 
-            $len1 = strlen((string)$val1);
-            $len2 = strlen((string)$val2);
+            $len1 = $val1->getLength();
+            $len2 = $val2->getLength();
 
             if ($len1 === $len2) {
                 $result = ($val1->getIndex() < $val2->getIndex()) ? 1 : -1; // <- louche
