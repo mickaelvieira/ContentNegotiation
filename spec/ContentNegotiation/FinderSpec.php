@@ -25,9 +25,9 @@ class FinderSpec extends ObjectBehavior
      */
     function it_should_find_the_client_header_matching_a_supported_value($value1, $value2, $value3, $headerField, $supportedValues)
     {
-        $value1->getValue()->willReturn('value1');
-        $value2->getValue()->willReturn('value2');
-        $value3->getValue()->willReturn('value3');
+        $value1->getValue()->willReturn('application/json');
+        $value2->getValue()->willReturn('text/html');
+        $value3->getValue()->willReturn('audio/ogg');
 
         $headerField->getIterator()->willReturn(
             new \ArrayIterator([
@@ -37,12 +37,13 @@ class FinderSpec extends ObjectBehavior
             ])
         );
 
-        $supportedValues->hasExactValue('value1')->willReturn(false);
-        $supportedValues->hasExactValue('value2')->willReturn(true);
-        $supportedValues->hasExactValue('value3')->willReturn(false);
+        $supportedValues->hasExactValue('application/json')->willReturn(false);
+        $supportedValues->hasExactValue('text/html')->willReturn(true);
+        $supportedValues->hasExactValue('audio/ogg')->willReturn(true);
 
         $this::findFirstMatchingValue($headerField, $supportedValues)
             ->shouldHaveType('\ContentNegotiation\Header\Value');
-        $this::findFirstMatchingValue($headerField, $supportedValues)->getValue()->shouldBeEqualTo('value2');
+        $this::findFirstMatchingValue($headerField, $supportedValues)
+            ->getValue()->shouldBeEqualTo('text/html');
     }
 }

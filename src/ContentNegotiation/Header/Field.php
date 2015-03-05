@@ -12,8 +12,6 @@
 
 namespace ContentNegotiation\Header;
 
-use ContentNegotiation\AcceptHeader;
-
 /**
  * Class Field
  * @package ContentNegotiation\Header
