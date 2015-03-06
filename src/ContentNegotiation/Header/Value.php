@@ -36,16 +36,16 @@ class Value
     /**
      * @var int
      */
-    protected $index = 0;
+    protected $position = 0;
 
     /**
      * @param        $pieces
-     * @param null   $index
+     * @param null   $position
      * @param string $delimiter
      */
-    public function __construct($pieces, $index = null, $delimiter = "")
+    public function __construct($pieces, $position = null, $delimiter = "")
     {
-        $this->index = (int)$index;
+        $this->position = (int)$position;
 
         self::$delimiter = $delimiter;
 
@@ -179,7 +179,7 @@ class Value
      */
     public function getPosition()
     {
-        return $this->index;
+        return $this->position;
     }
 
     /**
