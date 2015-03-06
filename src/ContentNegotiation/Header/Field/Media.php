@@ -39,14 +39,14 @@ class Media extends Field
         $qua1 = $val1->getQuality();
         $qua2 = $val2->getQuality();
 
-        if ($qua1 == $qua2) {
+        if ($qua1 === $qua2) {
 
-            $len1 = $val1->getLength();
-            $len2 = $val2->getLength();
+            $count1 = $val1->countParams();
+            $count2 = $val2->countParams();
 
-            if ($len1 === $len2) {
-                $result = ($val1->getIndex() < $val2->getIndex()) ? 1 : -1; // <- louche
-            } elseif ($len1 < $len2) {
+            if ($count1 === $count2) {
+                $result = ($val1->getPosition() < $val2->getPosition()) ? 1 : -1; // <- louche
+            } elseif ($count1 < $count2) {
                 $result = -1;
             } else {
                 $result = 1;

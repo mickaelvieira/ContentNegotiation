@@ -215,7 +215,7 @@ abstract class Field implements \IteratorAggregate, \Countable
         $qua2 = $val2->getQuality();
 
         if ($qua1 === $qua2) {
-            $result = ($val1->getIndex() < $val2->getIndex()) ? 1 : -1;
+            $result = ($val1->getPosition() < $val2->getPosition()) ? 1 : -1;
         } elseif ($qua1 < $qua2) {
             $result = -1;
         } else {

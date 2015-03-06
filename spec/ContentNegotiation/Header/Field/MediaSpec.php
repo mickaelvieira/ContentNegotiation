@@ -55,6 +55,9 @@ class MediaSpec extends ObjectBehavior
     {
         $this->beConstructedWith('text/*,text/html,text/html;level=1,*/*');
         $this->__toString()->shouldBeEqualTo('text/html;level=1;q=1,text/html;q=1,text/*;q=1,*/*;q=1');
+        // text/*,text/html,text/html;level=1,*/*
+        // text/html;level=1;q=1,text/html;q=1,text/*;q=1,*/*;q=1
+        // text/html;level=1;q=1,text/*;q=1,text/html;q=1,*/*;q=1
     }
 
     function it_should_return_the_first_matching_value()

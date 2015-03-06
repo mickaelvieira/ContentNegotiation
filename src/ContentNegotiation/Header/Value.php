@@ -165,7 +165,7 @@ abstract class Value
     /**
      * @return int
      */
-    public function getIndex()
+    public function getPosition()
     {
         return $this->index;
     }
@@ -173,8 +173,8 @@ abstract class Value
     /**
      * @return int
      */
-    public function getLength()
+    public function countParams()
     {
-        return strlen((string)$this);
+        return $this->params->count();
     }
 }
