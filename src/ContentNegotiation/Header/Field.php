@@ -94,32 +94,6 @@ class Field implements \IteratorAggregate, \Countable
     }
 
     /**
-     * @param string $tag
-     * @return bool
-     */
-    public function hasTag($tag)
-    {
-        $result = array_filter($this->values, function ($entity) use ($tag) {
-            /* @var Value $entity */
-            return $entity->hasTag($tag);
-        });
-        return (count($result) > 0);
-    }
-
-    /**
-     * @param string $subTag
-     * @return bool
-     */
-    public function hasSubTag($subTag)
-    {
-        $result = array_filter($this->values, function ($entity) use ($subTag) {
-            /* @var Value $entity */
-            return $entity->hasSubTag($subTag);
-        });
-        return (count($result) > 0);
-    }
-
-    /**
      * @param string $value
      * @return bool
      */
@@ -157,7 +131,7 @@ class Field implements \IteratorAggregate, \Countable
         $match = null;
         foreach ($values as $value) {
             $range = new ValueRange($value, $this->getValueDelimiter());
-            if ($this->hasTag($range->getValue()) && $this->hasAcceptAllSubTag($range->getValue())) {
+            if (/*$this->hasTag($range->getValue()) && */$this->hasAcceptAllSubTag($range->getValue())) {
                 $match = $value;
                 break;
             }

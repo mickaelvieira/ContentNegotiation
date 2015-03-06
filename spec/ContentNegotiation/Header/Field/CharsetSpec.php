@@ -29,12 +29,6 @@ class CharsetSpec extends ObjectBehavior
         $this->__toString()->shouldBeEqualTo('*;q=1');
     }
 
-    function it_should_be_aware_of_having_a_specific_charset()
-    {
-        $this->beConstructedWith('charset', 'iso-8859-5, *, unicode-1-1;q=0.8');
-        $this->shouldHaveTag('unicode-1-1');
-    }
-
     function it_should_be_aware_of_having_the_accept_all_tag()
     {
         $this->beConstructedWith('charset', 'iso-8859-5, *, unicode-1-1;q=0.8');
