@@ -42,14 +42,24 @@ class Media implements Negotiator
     public function negotiate(array $supported)
     {
         $value = null;
-        if ($value = $this->headerField->findFirstMatchingValue($supported)) {
+        $supported = new Field("media", implode(";", $supported));
+        if ($value = Finder::findFirstPreferredValueMatchingASupportedValue(
+            $this->headerField,
+            $supported
+        )) {
             return $value;
         }
-        if ($value = $this->headerField->findFirstMatchingSubValue($supported)) {
+        if ($value = Finder::findFirstSupportedValueMatchingAPreferredValueWithAcceptAllSubTag(
+            $this->headerField,
+            $supported
+        )) {
             return $value;
         }
-        if ($this->headerField->hasAcceptAllTag() && !empty($supported)) {
-            return $supported[0];
+        if ($value = Finder::findFirstSupportedValueWhenPreferredValueHasAcceptAllTag(
+            $this->headerField,
+            $supported
+        )) {
+            return $value;
         }
         return $value;
     }

@@ -28,7 +28,7 @@ class LanguageSpec extends ObjectBehavior
      * @param \ContentNegotiation\Header\Field\Language $collection
      * @param \ContentNegotiation\Header\Value\Language $value
      */
-    function it_should_return_the_language_when_it_matches_a_supported_language($collection, $value)
+    /*function it_should_return_the_language_when_it_matches_a_supported_language($collection, $value)
     {
         $supported = ['en', 'fr'];
         $collection->findFirstMatchingValue($supported)->willReturn($value);
@@ -54,5 +54,5 @@ class LanguageSpec extends ObjectBehavior
         $collection->hasAcceptAllTag()->willReturn(true);
 
         $this->negotiate(['fr-FR', 'es-ES'])->shouldReturn('fr-FR');
-    }
+    }*/
 }

@@ -107,39 +107,6 @@ class Field implements \IteratorAggregate, \Countable
     }
 
     /**
-     * {@inheritdoc}
-     */
-    public function findFirstMatchingValue(array $values)
-    {
-        $match = null;
-        foreach ($this->values as $value) {
-            /** @var Value $value */
-            if (array_search($value->getValue(), $values, true) !== false) {
-                $match = $value;
-                break;
-            }
-        }
-        return $match;
-    }
-
-    /**
-     * @param array $values
-     * @return null
-     */
-    public function findFirstMatchingSubValue(array $values)
-    {
-        $match = null;
-        foreach ($values as $value) {
-            $range = new ValueRange($value, $this->getValueDelimiter());
-            if (/*$this->hasTag($range->getValue()) && */$this->hasAcceptAllSubTag($range->getValue())) {
-                $match = $value;
-                break;
-            }
-        }
-        return $match;
-    }
-
-    /**
      * @return string
      */
     public function __toString()

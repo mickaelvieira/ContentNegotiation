@@ -27,12 +27,13 @@ class CharsetSpec extends ObjectBehavior
     /**
      * @param \ContentNegotiation\Header\Field\Charset $collection
      * @param \ContentNegotiation\Header\Value\Charset $value
+     * @param \ContentNegotiation\Finder $finder
      */
-    function it_should_return_the_charset_when_it_matches_a_supported_charset($collection, $value)
+    /*function it_should_return_the_charset_when_it_matches_a_supported_charset($collection, $value, $finder)
     {
         $supported = ['iso-8859-5', 'iso-8859-1', 'unicode-1-1'];
 
-        $collection->findFirstMatchingValue($supported)->willReturn($value);
+        $finder::findFirstSupportedValueWhenPreferredValueHasAcceptAllTag($collection, $supported)->willReturn($value);
         $this->negotiate($supported)->shouldReturn($value);
     }
 
@@ -56,5 +57,5 @@ class CharsetSpec extends ObjectBehavior
         $collection->hasAcceptAllTag()->willReturn(true);
 
         $this->negotiate($supported)->shouldReturn('utf-8');
-    }
+    }*/
 }

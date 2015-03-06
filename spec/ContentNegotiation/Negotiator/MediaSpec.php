@@ -28,7 +28,7 @@ class MediaSpec extends ObjectBehavior
      * @param \ContentNegotiation\Header\Field\Media $collection
      * @param \ContentNegotiation\Header\Value\Media $value
      */
-    function it_should_return_the_media_type_when_it_matches_a_supported_media_type($collection, $value)
+    /*function it_should_return_the_media_type_when_it_matches_a_supported_media_type($collection, $value)
     {
         $collection->findFirstMatchingValue(['text/html'])->willReturn($value);
         $this->negotiate(['text/html'])->shouldReturn($value);
@@ -57,5 +57,5 @@ class MediaSpec extends ObjectBehavior
         $collection->hasAcceptAllTag()->willReturn(true);
 
         $this->negotiate($supported)->shouldReturn('application/xml');
-    }
+    }*/
 }
