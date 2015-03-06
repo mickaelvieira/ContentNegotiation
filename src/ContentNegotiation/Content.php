@@ -12,6 +12,8 @@
 
 namespace ContentNegotiation;
 
+use ContentNegotiation\Header\FieldType;
+
 /**
  * Class Content
  * @package ContentNegotiation
@@ -36,7 +38,7 @@ class Content implements Negotiation
      */
     public function getMedia(array $supported)
     {
-        return $this->negotiate('media', $supported);
+        return $this->negotiate(FieldType::MEDIA_TYPE, $supported);
     }
 
     /**
@@ -44,7 +46,7 @@ class Content implements Negotiation
      */
     public function getLanguage(array $supported)
     {
-        return $this->negotiate('language', $supported);
+        return $this->negotiate(FieldType::LANGUAGE_TYPE, $supported);
     }
 
     /**
@@ -52,7 +54,7 @@ class Content implements Negotiation
      */
     public function getCharset(array $supported)
     {
-        return $this->negotiate('charset', $supported);
+        return $this->negotiate(FieldType::CHARSET_TYPE, $supported);
     }
 
     /**
@@ -84,13 +86,13 @@ class Content implements Negotiation
     {
         $type = null;
         switch ($name) {
-            case 'media':
+            case FieldType::MEDIA_TYPE:
                 $type = 'Accept';
                 break;
-            case 'charset':
+            case FieldType::CHARSET_TYPE:
                 $type = 'Accept-Charset';
                 break;
-            case 'language':
+            case FieldType::LANGUAGE_TYPE:
                 $type = 'Accept-Language';
                 break;
         }

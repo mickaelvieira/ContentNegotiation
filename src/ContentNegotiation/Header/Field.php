@@ -46,31 +46,11 @@ class Field implements \IteratorAggregate, \Countable
      */
     public function __construct($type, $headers)
     {
-        $this->type = $type;
+        $this->isValidFieldType($type);
 
+        $this->type = $type;
         $this->addValues($headers);
         $this->sort();
-    }
-
-    /**
-     * @return string
-     */
-    private function getDefaultValue()
-    {
-        if ($this->type === FieldType::LANGUAGE_TYPE || $this->type === FieldType::CHARSET_TYPE) {
-            return '*';
-        } elseif ($this->type === FieldType::MEDIA_TYPE) {
-            return '*/*;q=1';
-        } else {
-            throw new \InvalidArgumentException(
-                sprintf(
-                    "Invalid argument, expected %s, %s or %s",
-                    FieldType::LANGUAGE_TYPE,
-                    FieldType::CHARSET_TYPE,
-                    FieldType::MEDIA_TYPE
-                )
-            );
-        }
     }
 
     /**
@@ -191,11 +171,11 @@ class Field implements \IteratorAggregate, \Countable
     public function __toString()
     {
         $str = "";
-        foreach ($this->values as $entity) {
+        foreach ($this->values as $value) {
             if (!empty($str)) {
                 $str .= ",";
             }
-            $str .= (string)$entity;
+            $str .= (string)$value;
         }
         return $str;
     }
@@ -209,10 +189,14 @@ class Field implements \IteratorAggregate, \Countable
         $values = (is_string($headerValue) && !empty($headerValue)) ? explode(",", $headerValue) : [];
 
         foreach ($values as $value) {
-            /** @var Value $entity */
-            //$entity = $this->getEntityInstance($value, $this->count());
-            $entity = new Value($value, $this->count(), $this->getValueDelimiter());
-            if ($entity && $entity->getQuality() > 0) {
+
+            $entity = new Value(
+                $value,
+                $this->count(),
+                $this->getValueDelimiter()
+            );
+
+            if ($entity->getQuality() > 0) {
                 array_push($this->values, $entity);
             }
         }
@@ -222,16 +206,28 @@ class Field implements \IteratorAggregate, \Countable
     /**
      * @link http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html
      */
-    protected function addDefaultValueIfNoneIsDefined()
+    private function addDefaultValueIfNoneIsDefined()
     {
-        if (count($this->values) === 0) {
-            //$valueRange = $this->getEntityInstance($this->getDefaultValue(), $this->count());
-            $value = new Value($this->getDefaultValue(), $this->count(), $this->getValueDelimiter());
+        if ($this->count() === 0) {
+
+            $value = new Value(
+                $this->getDefaultValue(),
+                $this->count(),
+                $this->getValueDelimiter()
+            );
             array_push($this->values, $value);
         }
     }
 
-    protected function sort()
+    /**
+     * @return string
+     */
+    private function getDefaultValue()
+    {
+        return ($this->type === FieldType::MEDIA_TYPE) ? '*/*' : '*';
+    }
+
+    private function sort()
     {
         usort($this->values, [$this, 'sortCallback']);
         $this->values = array_reverse($this->values);
@@ -242,7 +238,7 @@ class Field implements \IteratorAggregate, \Countable
      * @param Value $val2
      * @return int
      */
-    protected function sortCallback(Value $val1, Value $val2)
+    private function sortCallback(Value $val1, Value $val2)
     {
         /*$qua1 = $val1->getQuality();
         $qua2 = $val2->getQuality();
@@ -281,30 +277,9 @@ class Field implements \IteratorAggregate, \Countable
     /**
      * @return string
      */
-    protected function getValueClassName()
-    {
-        return __NAMESPACE__ . "\\Value";
-    }
-
-    /**
-     * @param int $index
-     * @param string $value
-     * @return Value
-     */
-    protected function getEntityInstance($index, $value)
-    {
-        $className = $this->getValueClassName();
-        return new $className($index, $value);
-    }
-
-    /**
-     * @return string
-     */
-    protected function getValueDelimiter()
+    private function getValueDelimiter()
     {
         /** @var Value $className */
-        //$className = $this->getValueClassName();
-
         $delimiter = "";
         if ($this->type === FieldType::LANGUAGE_TYPE) {
             $delimiter = '-';
@@ -313,5 +288,28 @@ class Field implements \IteratorAggregate, \Countable
         }
 
         return $delimiter;
+    }
+
+    /**
+     * @param $type
+     * @return bool
+     */
+    private function isValidFieldType($type)
+    {
+        if (
+            $type !== FieldType::LANGUAGE_TYPE &&
+            $type !== FieldType::CHARSET_TYPE &&
+            $type !== FieldType::MEDIA_TYPE
+        ) {
+
+            throw new \InvalidArgumentException(sprintf(
+                "Invalid argument, expected %s, %s or %s",
+                FieldType::LANGUAGE_TYPE,
+                FieldType::CHARSET_TYPE,
+                FieldType::MEDIA_TYPE
+            ));
+        }
+
+        return true;
     }
 }
