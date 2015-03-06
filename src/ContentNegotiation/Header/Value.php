@@ -16,7 +16,7 @@ namespace ContentNegotiation\Header;
  * Class Value
  * @package ContentNegotiation\Header
  */
-abstract class Value
+class Value
 {
     /**
      * @var \ContentNegotiation\Header\ValueRange
@@ -39,12 +39,15 @@ abstract class Value
     protected $index = 0;
 
     /**
-     * @param string $pieces
-     * @param int    $index
+     * @param        $pieces
+     * @param null   $index
+     * @param string $delimiter
      */
-    public function __construct($pieces, $index = null)
+    public function __construct($pieces, $index = null, $delimiter = "")
     {
         $this->index = (int)$index;
+
+        self::$delimiter = $delimiter;
 
         $pieces = explode(";", $pieces);
         $values = array_shift($pieces);
@@ -108,7 +111,16 @@ abstract class Value
     /**
      * @return bool
      */
-    abstract public function hasAcceptAllSubTag();
+    public function hasAcceptAllSubTag()
+    {
+        if (static::getDelimiter() === "") {
+            return false;
+        } elseif (static::getDelimiter() === "-") {
+            return $this->hasSubTag(null);
+        } elseif (static::getDelimiter() === "/") {
+            return $this->hasSubTag('*');
+        }
+    }
 
     /**
      * @param string $tag
