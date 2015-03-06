@@ -28,7 +28,7 @@ final class Factory
         $negotiatorClass   = self::getNegotiatorClassName($name);
         $acceptHeaderClass = self::getAcceptHeaderClassName($name);
 
-        $acceptHeader = new $acceptHeaderClass($headerValue);
+        $acceptHeader = new $acceptHeaderClass($name, $headerValue);
 
         return new $negotiatorClass($acceptHeader);
     }

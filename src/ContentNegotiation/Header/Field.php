@@ -12,11 +12,13 @@
 
 namespace ContentNegotiation\Header;
 
+use ContentNegotiation\Header\Value;
+
 /**
  * Class Field
  * @package ContentNegotiation\Header
  */
-abstract class Field implements \IteratorAggregate, \Countable
+class Field implements \IteratorAggregate, \Countable
 {
     /**
      * @var string
@@ -34,20 +36,49 @@ abstract class Field implements \IteratorAggregate, \Countable
     protected $values = [];
 
     /**
+     * @var string
+     */
+    private $type;
+
+    /**
+     * @param $type
+     * @param $headers
+     */
+    public function __construct($type, $headers)
+    {
+        $this->type = $type;
+
+        $this->addValues($headers);
+        $this->sort();
+    }
+
+    /**
+     * @return string
+     */
+    private function getDefaultValue()
+    {
+        if ($this->type === FieldType::LANGUAGE_TYPE || $this->type === FieldType::CHARSET_TYPE) {
+            return '*';
+        } elseif ($this->type === FieldType::MEDIA_TYPE) {
+            return '*/*;q=1';
+        } else {
+            throw new \InvalidArgumentException(
+                sprintf(
+                    "Invalid argument, expected %s, %s or %s",
+                    FieldType::LANGUAGE_TYPE,
+                    FieldType::CHARSET_TYPE,
+                    FieldType::MEDIA_TYPE
+                )
+            );
+        }
+    }
+
+    /**
      * @return \ArrayIterator|\Traversable
      */
     public function getIterator()
     {
         return new \ArrayIterator($this->values);
-    }
-
-    /**
-     * @param string $headers
-     */
-    public function __construct($headers)
-    {
-        $this->addValues($headers);
-        $this->sort();
     }
 
     /**
@@ -179,7 +210,8 @@ abstract class Field implements \IteratorAggregate, \Countable
 
         foreach ($values as $value) {
             /** @var Value $entity */
-            $entity = $this->getEntityInstance($value, $this->count());
+            //$entity = $this->getEntityInstance($value, $this->count());
+            $entity = new Value($value, $this->count(), $this->getValueDelimiter());
             if ($entity && $entity->getQuality() > 0) {
                 array_push($this->values, $entity);
             }
@@ -193,8 +225,9 @@ abstract class Field implements \IteratorAggregate, \Countable
     protected function addDefaultValueIfNoneIsDefined()
     {
         if (count($this->values) === 0) {
-            $valueRange = $this->getEntityInstance($this->defaultValue, $this->count());
-            array_push($this->values, $valueRange);
+            //$valueRange = $this->getEntityInstance($this->getDefaultValue(), $this->count());
+            $value = new Value($this->getDefaultValue(), $this->count(), $this->getValueDelimiter());
+            array_push($this->values, $value);
         }
     }
 
@@ -211,11 +244,32 @@ abstract class Field implements \IteratorAggregate, \Countable
      */
     protected function sortCallback(Value $val1, Value $val2)
     {
-        $qua1 = $val1->getQuality();
+        /*$qua1 = $val1->getQuality();
         $qua2 = $val2->getQuality();
 
         if ($qua1 === $qua2) {
             $result = ($val1->getPosition() < $val2->getPosition()) ? 1 : -1;
+        } elseif ($qua1 < $qua2) {
+            $result = -1;
+        } else {
+            $result = 1;
+        }
+        return $result;*/
+        $qua1 = $val1->getQuality();
+        $qua2 = $val2->getQuality();
+
+        if ($qua1 === $qua2) {
+
+            $count1 = $val1->countParams();
+            $count2 = $val2->countParams();
+
+            if ($count1 === $count2) {
+                $result = ($val1->getPosition() < $val2->getPosition()) ? 1 : -1; // <- louche
+            } elseif ($count1 < $count2) {
+                $result = -1;
+            } else {
+                $result = 1;
+            }
         } elseif ($qua1 < $qua2) {
             $result = -1;
         } else {
@@ -229,13 +283,13 @@ abstract class Field implements \IteratorAggregate, \Countable
      */
     protected function getValueClassName()
     {
-        return __NAMESPACE__ . "\\Value\\" . $this->entityType;
+        return __NAMESPACE__ . "\\Value";
     }
 
     /**
      * @param int $index
      * @param string $value
-     * @return \ContentNegotiation\Header\Value
+     * @return Value
      */
     protected function getEntityInstance($index, $value)
     {
@@ -248,8 +302,16 @@ abstract class Field implements \IteratorAggregate, \Countable
      */
     protected function getValueDelimiter()
     {
-        /** @var \ContentNegotiation\Header\Value $className */
-        $className = $this->getValueClassName();
-        return $className::getDelimiter();
+        /** @var Value $className */
+        //$className = $this->getValueClassName();
+
+        $delimiter = "";
+        if ($this->type === FieldType::LANGUAGE_TYPE) {
+            $delimiter = '-';
+        } elseif ($this->type === FieldType::MEDIA_TYPE) {
+            $delimiter = '/';
+        }
+
+        return $delimiter;
     }
 }
