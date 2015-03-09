@@ -18,9 +18,19 @@ class ValueSpec extends ObjectBehavior
         $this->shouldHaveType('ContentNegotiation\Header\Value');
     }
 
-    function it_should_return_an_empty_string_when_input_is_empty()
+    function it_should_return_an_empty_string_when_charset_is_empty()
     {
         $this->beConstructedWith(FieldTypeFactory::makeTypeCharset(), '');
+        $this->__toString()->shouldBeEqualTo('');
+    }
+    function it_should_return_an_empty_string_when_language_is_empty()
+    {
+        $this->beConstructedWith(FieldTypeFactory::makeTypeLanguage(), '');
+        $this->__toString()->shouldBeEqualTo('');
+    }
+    function it_should_return_an_empty_string_when_media_is_empty()
+    {
+        $this->beConstructedWith(FieldTypeFactory::makeTypeMedia(), '');
         $this->__toString()->shouldBeEqualTo('');
     }
 
@@ -29,17 +39,46 @@ class ValueSpec extends ObjectBehavior
         $this->beConstructedWith(FieldTypeFactory::makeTypeCharset(), 'iso-8859-5');
         $this->getValue()->shouldBeEqualTo('iso-8859-5');
     }
+    function it_should_return_the_language_when_it_is_present_in_the_header_string()
+    {
+        $this->beConstructedWith(FieldTypeFactory::makeTypeLanguage(), 'da');
+        $this->getValue()->shouldBeEqualTo('da');
+    }
+    function it_should_return_the_media_when_it_is_present_in_the_header_string()
+    {
+        $this->beConstructedWith(FieldTypeFactory::makeTypeMedia(), 'text/plain');
+        $this->getValue()->shouldBeEqualTo('text/plain');
+    }
 
     function it_should_have_a_quality_equal_to_one_when_it_is_not_present_in_the_header_string()
     {
         $this->beConstructedWith(FieldTypeFactory::makeTypeCharset(), 'iso-8859-5');
         $this->getQuality()->shouldBeEqualTo(1.0);
     }
-
     function it_should_return_the_quality_when_it_is_present_in_the_header_string()
     {
         $this->beConstructedWith(FieldTypeFactory::makeTypeCharset(), 'unicode-1-1;q=0.8');
         $this->getQuality()->shouldBeEqualTo(0.8);
+    }
+    function it_should_have_the_quality_equal_to_one_it_has_the_match_all_tag()
+    {
+        $this->beConstructedWith(FieldTypeFactory::makeTypeCharset(), '*');
+        $this->getQuality()->shouldBeEqualTo(1.0);
+    }
+    function it_should_have_the_quality_equal_to_one_when_it_is_not_present_in_the_header_string()
+    {
+        $this->beConstructedWith(FieldTypeFactory::makeTypeLanguage(), 'en-gb');
+        $this->getQuality()->shouldBeEqualTo(1.0);
+    }
+    function it_should_have_a_media_range_with_quality_equal_to_one_when_it_is_not_present_in_the_header_string()
+    {
+        $this->beConstructedWith(FieldTypeFactory::makeTypeMedia(), 'text/plain');
+        $this->getQuality()->shouldBeEqualTo(1.0);
+    }
+    function it_should_return_the_quality_when_it_is_present_in_the_header_string_along_the_match_all_tag()
+    {
+        $this->beConstructedWith(FieldTypeFactory::makeTypeMedia(), '*/*;q=0.4');
+        $this->getQuality()->shouldBeEqualTo(0.4);
     }
 
     function it_should_be_split_the_specified_charset()
@@ -47,32 +86,19 @@ class ValueSpec extends ObjectBehavior
         $this->beConstructedWith(FieldTypeFactory::makeTypeCharset(), 'unicode-1-1;q=0.8');
         $this->shouldBeEqual('unicode-1-1');
     }
-
-    function it_should_have_the_quality_equal_to_one_it_has_the_match_all_tag()
+    function it_should_be_aware_of_having_a_value_range()
     {
-        $this->beConstructedWith(FieldTypeFactory::makeTypeCharset(), '*');
-        $this->getQuality()->shouldBeEqualTo(1.0);
+        $this->beConstructedWith(FieldTypeFactory::makeTypeLanguage(), 'fr-be');
+        $this->shouldBeEqual('fr-be');
     }
-
-    function it_should_return_the_language_range_when_it_is_present_in_the_header_string()
-    {
-        $this->beConstructedWith(FieldTypeFactory::makeTypeLanguage(), 'da');
-        $this->getValue()->shouldBeEqualTo('da');
-    }
-
-    function it_should_have_the_quality_equal_to_one_when_it_is_not_present_in_the_header_string()
-    {
-        $this->beConstructedWith(FieldTypeFactory::makeTypeLanguage(), 'en-gb');
-        $this->getQuality()->shouldBeEqualTo(1.0);
-    }
-
-    function it_should_be_aware_of_having_the_match_all_tag_when_it_is_present_in_the_header_string()
+    
+    function it_should_be_aware_of_having_the_match_all_language_when_it_is_present_in_the_header_string()
     {
         $this->beConstructedWith(FieldTypeFactory::makeTypeLanguage(), '*; q=0.3');
         $this->shouldHaveAcceptAllTag();
     }
 
-    function it_should_be_aware_of_having_the_match_all_sub_tag()
+    function it_should_be_aware_of_having_the_match_all_sub_language()
     {
         $this->beConstructedWith(FieldTypeFactory::makeTypeLanguage(), 'fr');
         $this->shouldHaveAcceptAllSubTag();
@@ -90,23 +116,6 @@ class ValueSpec extends ObjectBehavior
         $this->shouldHaveSubTag('be');
     }
 
-    function it_should_be_aware_of_having_a_value_range()
-    {
-        $this->beConstructedWith(FieldTypeFactory::makeTypeLanguage(), 'fr-be');
-        $this->shouldBeEqual('fr-be');
-    }
-
-    function it_should_return_the_media_range_when_it_is_present_in_the_header_string()
-    {
-        $this->beConstructedWith(FieldTypeFactory::makeTypeMedia(), 'text/plain');
-        $this->getValue()->shouldBeEqualTo('text/plain');
-    }
-
-    function it_should_have_a_media_range_with_quality_equal_to_one_when_it_is_not_present_in_the_header_string()
-    {
-        $this->beConstructedWith(FieldTypeFactory::makeTypeMedia(), 'text/plain');
-        $this->getQuality()->shouldBeEqualTo(1.0);
-    }
 
     function it_should_return_the_string_representation()
     {
@@ -119,7 +128,7 @@ class ValueSpec extends ObjectBehavior
         );
     }
 
-    function it_should_be_aware_of_the_match_all_tag()
+    function it_should_be_aware_of_the_match_all_media_type()
     {
         $this->beConstructedWith(FieldTypeFactory::makeTypeMedia(), '*/*;q=0.4');
         $this->shouldHaveTag("*");
@@ -127,7 +136,7 @@ class ValueSpec extends ObjectBehavior
         $this->shouldHaveAcceptAllTag();
     }
 
-    function it_should_not_accept_all_when_it_has_only_the_accept_all_sub_tag()
+    function it_should_not_accept_all_when_it_has_only_the_accept_all_sub_media_type()
     {
         $this->beConstructedWith(FieldTypeFactory::makeTypeMedia(), 'audio/*;q=0.4');
 
@@ -137,17 +146,12 @@ class ValueSpec extends ObjectBehavior
         $this->shouldNotHaveAcceptAllTag();
     }
 
-    function it_should_be_aware_of_the_match_all_sub_tag()
+    function it_should_be_aware_of_the_match_all_sub_media_type()
     {
         $this->beConstructedWith(FieldTypeFactory::makeTypeMedia(), 'application/*;q=0.4');
         $this->shouldHaveAcceptAllSubTag();
     }
 
-    function it_should_return_the_quality_when_it_is_present_in_the_header_string_along_the_match_all_tag()
-    {
-        $this->beConstructedWith(FieldTypeFactory::makeTypeMedia(), '*/*;q=0.4');
-        $this->getQuality()->shouldBeEqualTo(0.4);
-    }
 
     function it_should_be_aware_of_having_a_sub_media_type()
     {
@@ -155,7 +159,7 @@ class ValueSpec extends ObjectBehavior
         $this->shouldHaveSubTag('json');
     }
 
-    function it_should_be_aware_of_having_a_media_range()
+    function it_should_be_aware_of_having_a_media_type()
     {
         $this->beConstructedWith(FieldTypeFactory::makeTypeMedia(), 'application/*;q=0.4');
         $this->shouldBeEqual('application/*');
@@ -163,7 +167,7 @@ class ValueSpec extends ObjectBehavior
         $this->shouldHaveSubTag("*");
     }
 
-    function it_should_return_a_parameter_by_name()
+    function it_should_retrieve_a_parameter_by_name()
     {
         $this->beConstructedWith(
             FieldTypeFactory::makeTypeMedia(),

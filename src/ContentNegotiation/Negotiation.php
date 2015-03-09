@@ -34,7 +34,8 @@ class Negotiation
     }
 
     /**
-     * {@inheritdoc}
+     * @param array $supported
+     * @return \ContentNegotiation\Header\Value|null
      */
     public function getMedia(array $supported)
     {
@@ -47,7 +48,8 @@ class Negotiation
     }
 
     /**
-     * {@inheritdoc}
+     * @param array $supported
+     * @return \ContentNegotiation\Header\Value|null
      */
     public function getLanguage(array $supported)
     {
@@ -60,7 +62,8 @@ class Negotiation
     }
 
     /**
-     * {@inheritdoc}
+     * @param array $supported
+     * @return \ContentNegotiation\Header\Value|null
      */
     public function getCharset(array $supported)
     {

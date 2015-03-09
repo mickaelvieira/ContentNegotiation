@@ -11,7 +11,7 @@ use Prophecy\Argument;
  */
 class FieldTypeSpec extends ObjectBehavior
 {
-    function it_should_return_its_name()
+    function it_should_have_getters()
     {
         $this->beConstructedWith('my name', 'my default value', 'my default sub tag', 'my value delimiter');
         $this->getDefaultValue()->shouldBeEqualTo('my default value');
@@ -21,7 +21,7 @@ class FieldTypeSpec extends ObjectBehavior
         $this->shouldHaveType('ContentNegotiation\Header\FieldType');
     }
 
-    function it_should_know_when_is_a_media_type()
+    function it_should_know_when_it_is_a_media_type()
     {
         $this->beConstructedWith('media', 'my default value', 'my value delimiter', 'my default sub tag');
         $this->shouldBeMediaType();
@@ -29,7 +29,7 @@ class FieldTypeSpec extends ObjectBehavior
         $this->shouldNotBeCharsetType();
     }
 
-    function it_should_know_when_is_a_language_type()
+    function it_should_know_when_it_is_a_language_type()
     {
         $this->beConstructedWith('language', 'my default value', 'my value delimiter', 'my default sub tag');
         $this->shouldNotBeMediaType();
@@ -37,7 +37,7 @@ class FieldTypeSpec extends ObjectBehavior
         $this->shouldNotBeCharsetType();
     }
 
-    function it_should_know_when_is_a_charset_type()
+    function it_should_know_when_it_is_a_charset_type()
     {
         $this->beConstructedWith('charset', 'my default value', 'my value delimiter', 'my default sub tag');
         $this->shouldNotBeMediaType();

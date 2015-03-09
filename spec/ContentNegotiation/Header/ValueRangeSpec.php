@@ -12,19 +12,19 @@ use Prophecy\Argument;
  */
 class ValueRangeSpec extends ObjectBehavior
 {
-    function it_should_alter_values_when_no_delimiter_is_specified()
+    function it_should_not_alter_values_when_no_delimiter_is_specified()
     {
         $this->beConstructedWith(FieldTypeFactory::makeTypeCharset(), "test");
         $this->__toString()->shouldBeEqualTo('test');
     }
 
-    function it_should_alter_values_when_no_delimiter_is_specified_and_a_slash_is_present()
+    function it_should_not_alter_values_when_no_delimiter_is_specified_and_a_slash_is_present()
     {
         $this->beConstructedWith(FieldTypeFactory::makeTypeCharset(), "bar/*");
         $this->__toString()->shouldBeEqualTo('bar/*');
     }
 
-    function it_should_alter_values_when_no_delimiter_is_specified_and_a_dash_is_present()
+    function it_should_not_alter_values_when_no_delimiter_is_specified_and_a_dash_is_present()
     {
         $this->beConstructedWith(FieldTypeFactory::makeTypeCharset(), "bar-foo");
         $this->__toString()->shouldBeEqualTo('bar-foo');
