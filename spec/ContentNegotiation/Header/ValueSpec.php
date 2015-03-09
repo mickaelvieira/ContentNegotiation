@@ -91,7 +91,7 @@ class ValueSpec extends ObjectBehavior
         $this->beConstructedWith(FieldTypeFactory::makeTypeLanguage(), 'fr-be');
         $this->shouldBeEqual('fr-be');
     }
-    
+
     function it_should_be_aware_of_having_the_match_all_language_when_it_is_present_in_the_header_string()
     {
         $this->beConstructedWith(FieldTypeFactory::makeTypeLanguage(), '*; q=0.3');
