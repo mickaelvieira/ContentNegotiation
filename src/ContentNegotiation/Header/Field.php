@@ -119,7 +119,7 @@ class Field implements \IteratorAggregate, \Countable
      * @param string $headerValue
      * @return array
      */
-    protected function addValues($headerValue)
+    private function addValues($headerValue)
     {
         $values = (is_string($headerValue) && !empty($headerValue)) ? explode(",", $headerValue) : [];
 

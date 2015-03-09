@@ -21,12 +21,12 @@ final class Param
     /**
      * @var string
      */
-    protected $name;
+    private $name;
 
     /**
      * @var string
      */
-    protected $value;
+    private $value;
 
     /**
      * @param string $name

@@ -27,17 +27,17 @@ class Value
     /**
      * @var \ContentNegotiation\Header\ValueRange
      */
-    protected $value;
+    private $value;
 
     /**
      * @var \ContentNegotiation\Header\Params
      */
-    protected $params;
+    private $params;
 
     /**
      * @var int
      */
-    protected $position = 0;
+    private $position = 0;
 
     /**
      * @param \ContentNegotiation\Header\FieldType $type
