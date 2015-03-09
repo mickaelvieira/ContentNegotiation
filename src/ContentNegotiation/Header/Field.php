@@ -42,14 +42,14 @@ class Field implements \IteratorAggregate, \Countable
 
     /**
      * @param $type
-     * @param $headers
+     * @param $headerValue
      */
-    public function __construct($type, $headers)
+    public function __construct($type, $headerValue)
     {
         $this->isValidFieldType($type);
 
         $this->type = $type;
-        $this->addValues($headers);
+        $this->addValues($headerValue);
         $this->sort();
     }
 

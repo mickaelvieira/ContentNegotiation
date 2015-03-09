@@ -4,6 +4,7 @@ namespace spec\ContentNegotiation\Header;
 
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
+use ContentNegotiation\Header\Param;
 
 class ParamsSpec extends ObjectBehavior
 {
@@ -37,9 +38,9 @@ class ParamsSpec extends ObjectBehavior
 
     function it_should_return_all_params()
     {
-        $param1 = new \ContentNegotiation\Header\Param('name1', 'value1');
-        $param2 = new \ContentNegotiation\Header\Param('name2', 'value2');
-        $param3 = new \ContentNegotiation\Header\Param('q', '1');
+        $param1 = new Param('name1', 'value1');
+        $param2 = new Param('name2', 'value2');
+        $param3 = new Param('q', '1');
 
         $this->getParams()->shouldBeLike([$param1, $param2, $param3]);
     }
