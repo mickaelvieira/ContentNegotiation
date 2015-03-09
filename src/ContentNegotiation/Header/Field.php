@@ -124,14 +124,9 @@ class Field implements \IteratorAggregate, \Countable
      */
     public function __toString()
     {
-        $str = "";
-        foreach ($this->values as $value) {
-            if (!empty($str)) {
-                $str .= ",";
-            }
-            $str .= (string)$value;
-        }
-        return $str;
+        return implode(",", array_map(function ($item) {
+            return (string)$item;
+        }, $this->values));
     }
 
     /**
