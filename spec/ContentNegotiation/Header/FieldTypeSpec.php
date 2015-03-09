@@ -5,6 +5,10 @@ namespace spec\ContentNegotiation\Header;
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
 
+/**
+ * Class FieldTypeSpec
+ * @package spec\ContentNegotiation\Header
+ */
 class FieldTypeSpec extends ObjectBehavior
 {
     function it_should_return_its_name()

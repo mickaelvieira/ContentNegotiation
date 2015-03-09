@@ -6,6 +6,10 @@ use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
 use ContentNegotiation\Header\Param;
 
+/**
+ * Class ParamsSpec
+ * @package spec\ContentNegotiation\Header
+ */
 class ParamsSpec extends ObjectBehavior
 {
     function let()

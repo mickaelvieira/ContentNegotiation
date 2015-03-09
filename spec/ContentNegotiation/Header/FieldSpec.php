@@ -7,6 +7,10 @@ use ContentNegotiation\Header\Value;
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
 
+/**
+ * Class FieldSpec
+ * @package spec\ContentNegotiation\Header
+ */
 class FieldSpec extends ObjectBehavior
 {
     function it_is_initializable()
@@ -67,25 +71,6 @@ class FieldSpec extends ObjectBehavior
         $this->__toString()->shouldBeEqualTo('utf-8;q=1,utf-7;q=1,iso-8859-1;q=1,unicode-1-1;q=0.8,*;q=0.3');
     }
 
-    /*function it_should_return_the_first_matching_value()
-    {
-        $this->beConstructedWith('utf-8, utf-7, *;q=0.3, iso-8859-1, unicode-1-1;q=0.8');
-        $this->findFirstMatchingValue(['utf-8', 'utf-7'])->shouldHaveType('ContentNegotiation\Header\Value\Charset');
-        $this->findFirstMatchingValue(['utf-8', 'utf-7'])->getValue()->shouldBeEqualTo('utf-8');
-    }
-
-    function it_should_return_null_where_there_is_no_matching_value()
-    {
-        $this->beConstructedWith('utf-8, utf-7, *;q=0.3, unicode-1-1;q=0.8');
-        $this->findFirstMatchingValue(['iso-8859-1'])->shouldBeNull();
-    }
-
-    function it_should_return_always_return_null_when_search_a_sub_value()
-    {
-        $this->beConstructedWith('utf-8, utf-7, *;q=0.3, iso-8859-1, unicode-1-1;q=0.8');
-        $this->findFirstMatchingSubValue(['utf-8'])->shouldBeNull();
-    }*/
-
     // -----------------------------------------------------------
 
     function it_should_return_the_accept_all_tag_when_the_header_string_is_null()
@@ -132,42 +117,15 @@ class FieldSpec extends ObjectBehavior
 
     function it_should_return_language_matching_a_tag()
     {
-        $value1 = new Value(FieldTypeFactory::makeTypeLanguage(), 'fr-FR', 0, "-");
-        $value2 = new Value(FieldTypeFactory::makeTypeLanguage(), 'fr-BE', 1, "-");
-        $value3 = new Value(FieldTypeFactory::makeTypeLanguage(), 'fr-CH', 2, "-");
+        $value1 = new Value(FieldTypeFactory::makeTypeLanguage(), 'fr-FR', 0);
+        $value2 = new Value(FieldTypeFactory::makeTypeLanguage(), 'fr-BE', 1);
+        $value3 = new Value(FieldTypeFactory::makeTypeLanguage(), 'fr-CH', 2);
         $this->beConstructedWith(FieldTypeFactory::makeTypeLanguage(), 'fr-FR, fr-BE, fr-CH');
 
         $this->getValuesWithTag('fr')->shouldBeLike([
             $value1, $value2, $value3
         ]);
     }
-
-    /** broken test reference */
-    /*function it_should_return_the_first_matching_value()
-    {
-        $this->beConstructedWith('es-ES;q=0.7, es;q=0.6, fr;q=1.0, *;q=0.3, fr-CH');
-        $this->findFirstMatchingValue(['fr-CH', 'fr-FR'])
-            ->shouldHaveType('ContentNegotiation\Header\Value\Language');
-        $this->findFirstMatchingValue(['fr-CH', 'fr-FR'])->getValue()->shouldBeEqualTo('fr-CH');
-    }*/
-
-    /*function it_should_return_null_where_there_is_no_matching_value()
-    {
-        $this->beConstructedWith('es-ES;q=0.7, es;q=0.6, fr;q=1.0, *;q=0.3, fr-CH');
-        $this->findFirstMatchingValue(['de'])->shouldBeNull();
-    }*/
-
-    /*function it_should_return_the_first_matching_sub_value()
-    {
-        $this->beConstructedWith('es-ES;q=0.7, es; q=0.6 ,fr; q=1.0, *;q=0.3, fr-CH');
-        $this->findFirstMatchingSubValue(['fr-FR', 'fr-CH'])->shouldBeEqualTo('fr-FR');
-    }*/
-
-    /*function it_should_return_null_where_there_is_no_matching_sub_value()
-    {
-        $this->beConstructedWith('es-ES;q=0.7, es; q=0.6 ,fr; q=1.0, *;q=0.3, fr-CH');
-        $this->findFirstMatchingSubValue(['de', 'da'])->shouldBeNull();
-    }*/
 
     // -----------------------------------------------------------
 

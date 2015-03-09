@@ -6,6 +6,10 @@ use ContentNegotiation\Header\FieldTypeFactory;
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
 
+/**
+ * Class ValueSpec
+ * @package spec\ContentNegotiation\Header
+ */
 class ValueSpec extends ObjectBehavior
 {
     function it_is_initializable()
@@ -70,25 +74,25 @@ class ValueSpec extends ObjectBehavior
 
     function it_should_be_aware_of_having_the_match_all_sub_tag()
     {
-        $this->beConstructedWith(FieldTypeFactory::makeTypeLanguage(), 'fr', null, "-");
+        $this->beConstructedWith(FieldTypeFactory::makeTypeLanguage(), 'fr');
         $this->shouldHaveAcceptAllSubTag();
     }
 
     function it_should_be_aware_of_having_a_tag()
     {
-        $this->beConstructedWith(FieldTypeFactory::makeTypeLanguage(), 'fr-be', null, "-");
+        $this->beConstructedWith(FieldTypeFactory::makeTypeLanguage(), 'fr-be');
         $this->shouldHaveTag('fr');
     }
 
     function it_should_be_aware_of_having_a_sub_tag()
     {
-        $this->beConstructedWith(FieldTypeFactory::makeTypeLanguage(), 'fr-be', null, "-");
+        $this->beConstructedWith(FieldTypeFactory::makeTypeLanguage(), 'fr-be');
         $this->shouldHaveSubTag('be');
     }
 
     function it_should_be_aware_of_having_a_value_range()
     {
-        $this->beConstructedWith(FieldTypeFactory::makeTypeLanguage(), 'fr-be', null, "-");
+        $this->beConstructedWith(FieldTypeFactory::makeTypeLanguage(), 'fr-be');
         $this->shouldBeEqual('fr-be');
     }
 
@@ -117,7 +121,7 @@ class ValueSpec extends ObjectBehavior
 
     function it_should_be_aware_of_the_match_all_tag()
     {
-        $this->beConstructedWith(FieldTypeFactory::makeTypeMedia(), '*/*;q=0.4', null, "/");
+        $this->beConstructedWith(FieldTypeFactory::makeTypeMedia(), '*/*;q=0.4');
         $this->shouldHaveTag("*");
         $this->shouldHaveSubTag("*");
         $this->shouldHaveAcceptAllTag();
@@ -125,7 +129,7 @@ class ValueSpec extends ObjectBehavior
 
     function it_should_not_accept_all_when_it_has_only_the_accept_all_sub_tag()
     {
-        $this->beConstructedWith(FieldTypeFactory::makeTypeMedia(), 'audio/*;q=0.4', null, "/");
+        $this->beConstructedWith(FieldTypeFactory::makeTypeMedia(), 'audio/*;q=0.4');
 
         $this->shouldHaveTag("audio");
         $this->shouldHaveSubTag("*");
@@ -135,7 +139,7 @@ class ValueSpec extends ObjectBehavior
 
     function it_should_be_aware_of_the_match_all_sub_tag()
     {
-        $this->beConstructedWith(FieldTypeFactory::makeTypeMedia(), 'application/*;q=0.4', null, "/");
+        $this->beConstructedWith(FieldTypeFactory::makeTypeMedia(), 'application/*;q=0.4');
         $this->shouldHaveAcceptAllSubTag();
     }
 
@@ -147,13 +151,13 @@ class ValueSpec extends ObjectBehavior
 
     function it_should_be_aware_of_having_a_sub_media_type()
     {
-        $this->beConstructedWith(FieldTypeFactory::makeTypeMedia(), 'application/json;q=5', null, "/");
+        $this->beConstructedWith(FieldTypeFactory::makeTypeMedia(), 'application/json;q=5');
         $this->shouldHaveSubTag('json');
     }
 
     function it_should_be_aware_of_having_a_media_range()
     {
-        $this->beConstructedWith(FieldTypeFactory::makeTypeMedia(), 'application/*;q=0.4', null, "/");
+        $this->beConstructedWith(FieldTypeFactory::makeTypeMedia(), 'application/*;q=0.4');
         $this->shouldBeEqual('application/*');
         $this->shouldHaveTag("application");
         $this->shouldHaveSubTag("*");
