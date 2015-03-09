@@ -12,21 +12,24 @@
 
 namespace ContentNegotiation\Header;
 
+use ContentNegotiation\ContentType;
+
 /**
  * Class Value
  * @package ContentNegotiation\Header
  */
 class Value
 {
+
+    /**
+     * @var \ContentNegotiation\ContentType
+     */
+    private $type;
+
     /**
      * @var \ContentNegotiation\Header\ValueRange
      */
     protected $value;
-
-    /**
-     * @var string
-     */
-    protected static $delimiter = "";
 
     /**
      * @var \ContentNegotiation\Header\Params
@@ -39,21 +42,20 @@ class Value
     protected $position = 0;
 
     /**
-     * @param        $pieces
-     * @param null   $position
-     * @param string $delimiter
+     * @param \ContentNegotiation\ContentType $type
+     * @param                                 $pieces
+     * @param null                            $position
      */
-    public function __construct($pieces, $position = null, $delimiter = "")
+    public function __construct(ContentType $type, $pieces, $position = null)
     {
+        $this->type = $type;
         $this->position = (int)$position;
-
-        self::$delimiter = $delimiter;
 
         $pieces = explode(";", $pieces);
         $values = array_shift($pieces);
 
         if ($values) {
-            $this->value = new ValueRange($values, static::getDelimiter());
+            $this->value = new ValueRange($type, $values);
             $this->params = new Params($pieces);
         }
     }
@@ -65,14 +67,6 @@ class Value
     {
         $quality = $this->getParam('q');
         return (float)$quality->getValue();
-    }
-
-    /**
-     * @return string
-     */
-    public static function getDelimiter()
-    {
-        return static::$delimiter;
     }
 
     /**
@@ -113,11 +107,11 @@ class Value
      */
     public function hasAcceptAllSubTag()
     {
-        if (static::getDelimiter() === "") {
+        if ($this->type->isCharsetType()) {
             return false;
-        } elseif (static::getDelimiter() === "-") {
+        } elseif ($this->type->isLanguageType()) {
             return $this->hasSubTag(null);
-        } elseif (static::getDelimiter() === "/") {
+        } elseif ($this->type->isMediaType()) {
             return $this->hasSubTag('*');
         }
     }

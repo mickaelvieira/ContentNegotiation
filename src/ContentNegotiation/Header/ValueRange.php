@@ -12,12 +12,19 @@
 
 namespace ContentNegotiation\Header;
 
+use ContentNegotiation\ContentType;
+
 /**
  * Class ValueRange
  * @package ContentNegotiation\Header
  */
 final class ValueRange
 {
+    /**
+     * @var \ContentNegotiation\ContentType
+     */
+    private $type;
+
     /**
      * @var string
      */
@@ -29,17 +36,12 @@ final class ValueRange
     private $subValue;
 
     /**
-     * @var string
-     */
-    private $delimiter = "";
-
-    /**
+     * @param \ContentNegotiation\ContentType $type
      * @param string $range
-     * @param string $delimiter
      */
-    public function __construct($range, $delimiter = "")
+    public function __construct(ContentType $type, $range)
     {
-        $this->delimiter = $delimiter;
+        $this->type = $type;
         $this->parseRange($range);
     }
 
@@ -77,7 +79,7 @@ final class ValueRange
     {
         $properties = $this->toArray();
         return implode(
-            $this->delimiter,
+            $this->type->getValueDelimiter(),
             array_filter(
                 $properties,
                 function ($value) {
@@ -107,8 +109,9 @@ final class ValueRange
      */
     private function getValuesFromString($range)
     {
-        if (!empty($this->delimiter)) {
-            $values = explode($this->delimiter, $range);
+        $delimiter = $this->type->getValueDelimiter();
+        if (is_string($delimiter) && $delimiter !== "") {
+            $values = explode($delimiter, $range);
         } else {
             $values = [
                 $range

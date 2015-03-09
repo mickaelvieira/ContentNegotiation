@@ -22,24 +22,14 @@ use ContentNegotiation\Header\Value;
 class Field implements \IteratorAggregate, \Countable
 {
     /**
-     * @var string
+     * @var ContentType
      */
-    protected $defaultValue;
-
-    /**
-     * @var string
-     */
-    protected $entityType;
+    private $type;
 
     /**
      * @var array
      */
-    protected $values = [];
-
-    /**
-     * @var ContentType
-     */
-    private $type;
+    private $values = [];
 
     /**
      * @param $type
@@ -47,8 +37,6 @@ class Field implements \IteratorAggregate, \Countable
      */
     public function __construct(ContentType $type, $headerValue)
     {
-        //$this->isValidFieldType($type);
-
         $this->type = $type;
         $this->addValues($headerValue);
         $this->sort();
@@ -140,11 +128,7 @@ class Field implements \IteratorAggregate, \Countable
 
         foreach ($values as $value) {
 
-            $entity = new Value(
-                $value,
-                $this->count(),
-                $this->getValueDelimiter()
-            );
+            $entity = new Value($this->type, $value, $this->count());
 
             if ($entity->getQuality() > 0) {
                 array_push($this->values, $entity);
@@ -159,22 +143,9 @@ class Field implements \IteratorAggregate, \Countable
     private function addDefaultValueIfNoneIsDefined()
     {
         if ($this->count() === 0) {
-
-            $value = new Value(
-                $this->getDefaultValue(),
-                $this->count(),
-                $this->getValueDelimiter()
-            );
+            $value = new Value($this->type, $this->type->getDefaultValue(), $this->count());
             array_push($this->values, $value);
         }
-    }
-
-    /**
-     * @return string
-     */
-    private function getDefaultValue()
-    {
-        return ($this->type === FieldType::MEDIA_TYPE) ? '*/*' : '*';
     }
 
     private function sort()
@@ -222,44 +193,5 @@ class Field implements \IteratorAggregate, \Countable
             $result = 1;
         }
         return $result;
-    }
-
-    /**
-     * @return string
-     */
-    private function getValueDelimiter()
-    {
-        /** @var Value $className */
-        $delimiter = "";
-        if ($this->type === FieldType::LANGUAGE_TYPE) {
-            $delimiter = '-';
-        } elseif ($this->type === FieldType::MEDIA_TYPE) {
-            $delimiter = '/';
-        }
-
-        return $delimiter;
-    }
-
-    /**
-     * @param $type
-     * @return bool
-     */
-    private function isValidFieldType($type)
-    {
-        if (
-            $type !== FieldType::LANGUAGE_TYPE &&
-            $type !== FieldType::CHARSET_TYPE &&
-            $type !== FieldType::MEDIA_TYPE
-        ) {
-
-            throw new \InvalidArgumentException(sprintf(
-                "Invalid argument, expected %s, %s or %s",
-                FieldType::LANGUAGE_TYPE,
-                FieldType::CHARSET_TYPE,
-                FieldType::MEDIA_TYPE
-            ));
-        }
-
-        return true;
     }
 }
