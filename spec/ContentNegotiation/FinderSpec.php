@@ -88,6 +88,42 @@ class FinderSpec extends ObjectBehavior
             ->getValue()->shouldBeEqualTo('application/json');
     }
 
+    /**
+     * @param \ContentNegotiation\Header\Value\Language $value1
+     * @param \ContentNegotiation\Header\Value\Language $value2
+     * @param \ContentNegotiation\Header\Value\Language $value3
+     * @param \ContentNegotiation\Header\Value\Language $value4
+     * @param \ContentNegotiation\Header\Field\Language $preferred
+     * @param \ContentNegotiation\Header\Field\Language $supported
+     */
+    function it_should_find_first_preferred_value_matching_a_supported_value_with_accept_all_subtag(
+        $value1, $value2, $value3, $value4, $preferred, $supported
+    )
+    {
+        $value1->getTag()->willReturn('fr');
+        $value1->hasAcceptAllTag()->willReturn(false);
+        $value1->hasAcceptAllSubTag()->willReturn(false);
+
+        $value2->getValue()->willReturn('fr-FR');
+        $value3->getValue()->willReturn('fr-BE');
+        $value4->getValue()->willReturn('fr-CH');
+
+        $supported->getIterator()->willReturn(
+            new \ArrayIterator([
+                $value1->getWrappedObject()
+            ])
+        );
+
+        $preferred->getValuesWithTag('fr')->willReturn([
+            $value2, $value3, $value4
+        ]);
+
+        $this::findFirstPreferredValueMatchingASupportedValueWithAcceptAllSubTag($preferred, $supported)
+            ->shouldHaveType('\ContentNegotiation\Header\Value');
+        $this::findFirstPreferredValueMatchingASupportedValueWithAcceptAllSubTag($preferred, $supported)
+            ->getValue()->shouldBeEqualTo('fr-FR');
+    }
+
 
     /**
      * @param \ContentNegotiation\Header\Value\Media $value1

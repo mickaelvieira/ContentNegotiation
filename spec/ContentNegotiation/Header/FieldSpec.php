@@ -2,6 +2,7 @@
 
 namespace spec\ContentNegotiation\Header;
 
+use ContentNegotiation\Header\Value;
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
 
@@ -43,6 +44,14 @@ class FieldSpec extends ObjectBehavior
     {
         $this->beConstructedWith('charset', 'iso-8859-5;q=1,iso-8859-1;q=1,unicode-1-1;q=0.8');
         $this->shouldHaveExactValue('unicode-1-1');
+    }
+
+    function it_should_return_values_matching_a_tag()
+    {
+        $value = new Value('unicode-1-1', 2, "");
+        $this->beConstructedWith('charset', 'iso-8859-5, iso-8859-1, unicode-1-1');
+
+        $this->getValuesWithTag('unicode-1-1')->shouldBeLike([$value]);
     }
 
     function it_should_sort_the_charset()
@@ -119,6 +128,19 @@ class FieldSpec extends ObjectBehavior
         $this->beConstructedWith('language', 'es-ES;q=0.7, es; q=0.6 ,fr; q=1.0, *;q=0.3, fr-CH');
         $this->shouldHaveExactValue('fr-CH');
     }
+
+    function it_should_return_language_matching_a_tag()
+    {
+        $value1 = new Value('fr-FR', 0, "-");
+        $value2 = new Value('fr-BE', 1, "-");
+        $value3 = new Value('fr-CH', 2, "-");
+        $this->beConstructedWith('language', 'fr-FR, fr-BE, fr-CH');
+
+        $this->getValuesWithTag('fr')->shouldBeLike([
+            $value1, $value2, $value3
+        ]);
+    }
+
     /** broken test reference */
     /*function it_should_return_the_first_matching_value()
     {

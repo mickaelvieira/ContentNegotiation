@@ -81,6 +81,43 @@ class Finder
      * @return \ContentNegotiation\Header\Value|null
      *
      * supported:
+     * - fr
+     *
+     * preferred:
+     * - fr-FR
+     * - fr-BE
+     * - fr-CH
+     *
+     * returned:
+     * - fr-FR
+     *
+     */
+    public static function findFirstPreferredValueMatchingASupportedValueWithAcceptAllSubTag(
+        Field $preferred,
+        Field $supported
+    ) {
+        $match = null;
+        foreach ($supported as $value) {
+            /** @var \ContentNegotiation\Header\Value $value */
+            if (!$value->hasAcceptAllTag() && !$value->hasAcceptAllSubTag()) {
+
+                $tags = $preferred->getValuesWithTag($value->getTag());
+
+                if (current($tags) !== false) {
+                    $match = current($tags);
+                    break;
+                }
+            }
+        }
+        return $match;
+    }
+
+    /**
+     * @param \ContentNegotiation\Header\Field $preferred
+     * @param \ContentNegotiation\Header\Field $supported
+     * @return \ContentNegotiation\Header\Value|null
+     *
+     * supported:
      * - application/json
      * - application/xml
      * - application/atom+xml

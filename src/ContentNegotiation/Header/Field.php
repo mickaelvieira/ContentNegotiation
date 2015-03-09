@@ -107,6 +107,19 @@ class Field implements \IteratorAggregate, \Countable
     }
 
     /**
+     * @param $tag
+     * @return array
+     */
+    public function getValuesWithTag($tag)
+    {
+        $result = array_filter($this->values, function ($entity) use ($tag) {
+            /* @var Value $entity */
+            return $entity->hasTag($tag);
+        });
+        return array_values($result);
+    }
+
+    /**
      * @return string
      */
     public function __toString()
