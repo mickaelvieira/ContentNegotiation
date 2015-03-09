@@ -9,21 +9,10 @@ namespace ContentNegotiation\Header;
  */
 final class FieldType
 {
-    /**
-     *
-     */
+
     const LANGUAGE_TYPE = "language";
-
-    /**
-     *
-     */
-    const CHARSET_TYPE = "charset";
-
-    /**
-     *
-     */
-    const MEDIA_TYPE = "media";
-
+    const CHARSET_TYPE  = "charset";
+    const MEDIA_TYPE    = "media";
 
     /**
      * @var string

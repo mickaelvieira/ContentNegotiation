@@ -22,12 +22,12 @@ use ContentNegotiation\Header\FieldType;
 final class NegotiatorFactory
 {
     /**
-     * @param \ContentNegotiation\Header\FieldType $contentType
+     * @param \ContentNegotiation\Header\FieldType $type
      * @param string $headerValue
      * @return \ContentNegotiation\Negotiator
      */
-    public static function make(FieldType $contentType, $headerValue)
+    public static function make(FieldType $type, $headerValue)
     {
-        return new Negotiator($contentType, new Field($contentType, $headerValue));
+        return new Negotiator($type, new Field($type, $headerValue));
     }
 }
