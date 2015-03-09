@@ -124,9 +124,7 @@ class Field implements \IteratorAggregate, \Countable
         $values = (is_string($headerValue) && !empty($headerValue)) ? explode(",", $headerValue) : [];
 
         foreach ($values as $value) {
-
             $entity = new Value($this->type, $value, $this->count());
-
             if ($entity->getQuality() > 0) {
                 array_push($this->values, $entity);
             }

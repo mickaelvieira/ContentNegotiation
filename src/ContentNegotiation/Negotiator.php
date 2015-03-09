@@ -18,14 +18,13 @@ use ContentNegotiation\Header\FieldType;
 /**
  * Class Negotiator
  * @package ContentNegotiation
- * @link http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html
  */
 final class Negotiator
 {
     /**
-     * @var \ContentNegotiation\ContentType
+     * @var \ContentNegotiation\Header\FieldType
      */
-    private $contentType;
+    private $type;
 
     /**
      * @var \ContentNegotiation\Header\Field;
@@ -33,22 +32,23 @@ final class Negotiator
     private $preferred;
 
     /**
-     * @param \ContentNegotiation\Header\FieldType  $contentType
+     * @param \ContentNegotiation\Header\FieldType  $type
      * @param \ContentNegotiation\Header\Field $preferred
      */
-    public function __construct(FieldType $contentType, Field $preferred)
+    public function __construct(FieldType $type, Field $preferred)
     {
-        $this->contentType = $contentType;
-        $this->preferred   = $preferred;
+        $this->type = $type;
+        $this->preferred = $preferred;
     }
 
     /**
-     * {@inheritdoc}
+     * @param array $supported
+     * @return \ContentNegotiation\Header\Value|null
      */
     public function negotiate(array $supported)
     {
         $value = null;
-        $supported = new Field($this->contentType, implode(";", $supported));
+        $supported = new Field($this->type, implode(",", $supported));
         if ($value = Finder::findFirstPreferredValueMatchingASupportedValue(
             $this->preferred,
             $supported
