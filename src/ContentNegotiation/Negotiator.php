@@ -13,7 +13,7 @@
 namespace ContentNegotiation;
 
 use ContentNegotiation\Header\Field;
-use ContentNegotiation\ContentType;
+use ContentNegotiation\Header\FieldType;
 
 /**
  * Class Negotiator
@@ -23,23 +23,23 @@ use ContentNegotiation\ContentType;
 final class Negotiator
 {
     /**
-     * @var \ContentNegotiation\AcceptHeader;
-     */
-    private $headerField;
-
-    /**
      * @var \ContentNegotiation\ContentType
      */
     private $contentType;
 
     /**
-     * @param \ContentNegotiation\ContentType  $contentType
+     * @var \ContentNegotiation\Header\Field;
+     */
+    private $preferred;
+
+    /**
+     * @param \ContentNegotiation\Header\FieldType  $contentType
      * @param \ContentNegotiation\Header\Field $preferred
      */
-    public function __construct(ContentType $contentType, Field $preferred)
+    public function __construct(FieldType $contentType, Field $preferred)
     {
         $this->contentType = $contentType;
-        $this->headerField = $preferred;
+        $this->preferred   = $preferred;
     }
 
     /**
@@ -50,19 +50,19 @@ final class Negotiator
         $value = null;
         $supported = new Field($this->contentType, implode(";", $supported));
         if ($value = Finder::findFirstPreferredValueMatchingASupportedValue(
-            $this->headerField,
+            $this->preferred,
             $supported
         )) {
             return $value;
         }
         if ($value = Finder::findFirstSupportedValueMatchingAPreferredValueWithAcceptAllSubTag(
-            $this->headerField,
+            $this->preferred,
             $supported
         )) {
             return $value;
         }
         if ($value = Finder::findFirstSupportedValueWhenPreferredValueHasAcceptAllTag(
-            $this->headerField,
+            $this->preferred,
             $supported
         )) {
             return $value;

@@ -12,6 +12,8 @@
 
 namespace ContentNegotiation;
 
+use ContentNegotiation\Header\FieldTypeFactory;
+
 /**
  * Class Content
  * @package ContentNegotiation
@@ -37,7 +39,7 @@ class Content implements Negotiation
     public function getMedia(array $supported)
     {
         $negotiator = NegotiatorFactory::make(
-            ContentTypeFactory::makeTypeMedia(),
+            FieldTypeFactory::makeTypeMedia(),
             $this->getHeaderValue('Accept')
         );
 
@@ -50,7 +52,7 @@ class Content implements Negotiation
     public function getLanguage(array $supported)
     {
         $negotiator = NegotiatorFactory::make(
-            ContentTypeFactory::makeTypeLanguage(),
+            FieldTypeFactory::makeTypeLanguage(),
             $this->getHeaderValue('Accept-Language')
         );
 
@@ -63,7 +65,7 @@ class Content implements Negotiation
     public function getCharset(array $supported)
     {
         $negotiator = NegotiatorFactory::make(
-            ContentTypeFactory::makeTypeCharset(),
+            FieldTypeFactory::makeTypeCharset(),
             $this->getHeaderValue('Accept-Charset')
         );
 

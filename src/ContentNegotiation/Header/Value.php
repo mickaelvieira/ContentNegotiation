@@ -12,8 +12,6 @@
 
 namespace ContentNegotiation\Header;
 
-use ContentNegotiation\ContentType;
-
 /**
  * Class Value
  * @package ContentNegotiation\Header
@@ -22,7 +20,7 @@ class Value
 {
 
     /**
-     * @var \ContentNegotiation\ContentType
+     * @var \ContentNegotiation\Header\FieldType
      */
     private $type;
 
@@ -42,11 +40,11 @@ class Value
     protected $position = 0;
 
     /**
-     * @param \ContentNegotiation\ContentType $type
+     * @param \ContentNegotiation\Header\FieldType $type
      * @param                                 $pieces
      * @param null                            $position
      */
-    public function __construct(ContentType $type, $pieces, $position = null)
+    public function __construct(FieldType $type, $pieces, $position = null)
     {
         $this->type = $type;
         $this->position = (int)$position;

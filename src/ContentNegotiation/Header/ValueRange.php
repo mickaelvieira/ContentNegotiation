@@ -12,8 +12,6 @@
 
 namespace ContentNegotiation\Header;
 
-use ContentNegotiation\ContentType;
-
 /**
  * Class ValueRange
  * @package ContentNegotiation\Header
@@ -21,7 +19,7 @@ use ContentNegotiation\ContentType;
 final class ValueRange
 {
     /**
-     * @var \ContentNegotiation\ContentType
+     * @var \ContentNegotiation\Header\FieldType
      */
     private $type;
 
@@ -36,10 +34,10 @@ final class ValueRange
     private $subValue;
 
     /**
-     * @param \ContentNegotiation\ContentType $type
+     * @param \ContentNegotiation\Header\FieldType $type
      * @param string $range
      */
-    public function __construct(ContentType $type, $range)
+    public function __construct(FieldType $type, $range)
     {
         $this->type = $type;
         $this->parseRange($range);

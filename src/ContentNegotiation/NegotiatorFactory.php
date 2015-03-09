@@ -13,6 +13,7 @@
 namespace ContentNegotiation;
 
 use ContentNegotiation\Header\Field;
+use ContentNegotiation\Header\FieldType;
 
 /**
  * Class NegotiatorFactory
@@ -21,11 +22,11 @@ use ContentNegotiation\Header\Field;
 final class NegotiatorFactory
 {
     /**
-     * @param ContentType $contentType
+     * @param FieldType $contentType
      * @param string $headerValue
      * @return \ContentNegotiation\Negotiator
      */
-    public static function make(ContentType $contentType, $headerValue)
+    public static function make(FieldType $contentType, $headerValue)
     {
         $acceptHeader = new Field($contentType, $headerValue);
 

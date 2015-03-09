@@ -2,7 +2,7 @@
 
 namespace spec\ContentNegotiation;
 
-use ContentNegotiation\ContentTypeFactory;
+use ContentNegotiation\Header\FieldTypeFactory;
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
 
@@ -19,19 +19,19 @@ class NegotiatorFactorySpec extends ObjectBehavior
 
     function it_should_build_a_language_negotiator()
     {
-        $this::make(ContentTypeFactory::makeTypeLanguage(), [])
+        $this::make(FieldTypeFactory::makeTypeLanguage(), [])
             ->shouldHaveType('\ContentNegotiation\Negotiator');
     }
 
     function it_should_build_a_charset_negotiator()
     {
-        $this::make(ContentTypeFactory::makeTypeCharset(), [])
+        $this::make(FieldTypeFactory::makeTypeCharset(), [])
             ->shouldHaveType('\ContentNegotiation\Negotiator');
     }
 
     function it_should_build_a_media_negotiator()
     {
-        $this::make(ContentTypeFactory::makeTypeMedia(), [])
+        $this::make(FieldTypeFactory::makeTypeMedia(), [])
             ->shouldHaveType('\ContentNegotiation\Negotiator');
     }
 }

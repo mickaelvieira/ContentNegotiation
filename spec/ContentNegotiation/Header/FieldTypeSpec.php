@@ -1,15 +1,11 @@
 <?php
 
-namespace spec\ContentNegotiation;
+namespace spec\ContentNegotiation\Header;
 
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
 
-/**
- * Class TypeSpec
- * @package spec\ContentNegotiation
- */
-class ContentTypeSpec extends ObjectBehavior
+class FieldTypeSpec extends ObjectBehavior
 {
     function it_should_return_its_name()
     {
@@ -18,7 +14,7 @@ class ContentTypeSpec extends ObjectBehavior
         $this->getDefaultSubTag()->shouldBeEqualTo('my default sub tag');
         $this->getValueDelimiter()->shouldBeEqualTo('my value delimiter');
 
-        $this->shouldHaveType('ContentNegotiation\ContentType');
+        $this->shouldHaveType('ContentNegotiation\Header\FieldType');
     }
 
     function it_should_know_when_is_a_media_type()

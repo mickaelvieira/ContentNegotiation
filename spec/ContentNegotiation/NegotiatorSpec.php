@@ -2,7 +2,7 @@
 
 namespace spec\ContentNegotiation;
 
-use ContentNegotiation\ContentTypeFactory;
+use ContentNegotiation\Header\FieldTypeFactory;
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
 
@@ -14,7 +14,7 @@ class NegotiatorSpec extends ObjectBehavior
      */
     function it_is_initializable($preferred)
     {
-        $this->beConstructedWith(ContentTypeFactory::makeTypeLanguage(), $preferred);
+        $this->beConstructedWith(FieldTypeFactory::makeTypeLanguage(), $preferred);
         $this->shouldHaveType('ContentNegotiation\Negotiator');
     }
 }
