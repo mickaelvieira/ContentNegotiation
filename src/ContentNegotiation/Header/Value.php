@@ -105,12 +105,12 @@ class Value
      */
     public function hasAcceptAllSubTag()
     {
-        if ($this->type->isCharsetType()) {
-            return false;
-        } elseif ($this->type->isLanguageType()) {
+        if ($this->type->isLanguageType()) {
             return $this->hasSubTag(null);
         } elseif ($this->type->isMediaType()) {
             return $this->hasSubTag('*');
+        } else {
+            return false;
         }
     }
 

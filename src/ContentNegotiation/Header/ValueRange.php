@@ -76,15 +76,9 @@ final class ValueRange
     public function __toString()
     {
         $properties = $this->toArray();
-        return implode(
-            $this->type->getValueDelimiter(),
-            array_filter(
-                $properties,
-                function ($value) {
-                    return (!is_null($value) && !empty($value));
-                }
-            )
-        );
+        return implode($this->type->getValueDelimiter(), array_filter($properties, function ($value) {
+            return (!is_null($value) && !empty($value));
+        }));
     }
 
     /**
@@ -93,10 +87,10 @@ final class ValueRange
     private function parseRange($range)
     {
         $values = $this->getValuesFromString($range);
-        if (isset($values[0]) && !empty($values[0])) {
+        if (!empty($values[0])) {
             $this->setValue($values[0]);
         }
-        if (isset($values[1]) && !empty($values[1])) {
+        if (!empty($values[1])) {
             $this->setSubValue($values[1]);
         }
     }
