@@ -14,6 +14,19 @@ class Finder
      * @param \ContentNegotiation\Header\Field $preferred
      * @param \ContentNegotiation\Header\Field $supported
      * @return \ContentNegotiation\Header\Value|null
+
+     * preferred:
+     * - application/json
+     * - application/xml
+     * - application/atom+xml
+     *
+     * supported:
+     * - application/xml
+     * - application/atom+xml
+     *
+     * returned:
+     * - application/xml
+     *
      */
     public static function findFirstPreferredValueMatchingASupportedValue(
         Field $preferred,
@@ -34,6 +47,18 @@ class Finder
      * @param \ContentNegotiation\Header\Field $preferred
      * @param \ContentNegotiation\Header\Field $supported
      * @return \ContentNegotiation\Header\Value|null
+     *
+     * supported:
+     * - application/json
+     * - application/xml
+     * - application/atom+xml
+     *
+     * preferred:
+     * - application/*
+     *
+     * returned:
+     * - application/json
+     *
      */
     public static function findFirstSupportedValueMatchingAPreferredValueWithAcceptAllSubTag(
         Field $preferred,
@@ -42,7 +67,7 @@ class Finder
         $match = null;
         foreach ($supported as $value) {
             /** @var \ContentNegotiation\Header\Value $value */
-            if ($preferred->hasAcceptAllSubTag($value->getTag())) {
+            if (!$value->hasAcceptAllTag() && $preferred->hasAcceptAllSubTag($value->getTag())) {
                 $match = $value;
                 break;
             }
@@ -54,6 +79,18 @@ class Finder
      * @param \ContentNegotiation\Header\Field $preferred
      * @param \ContentNegotiation\Header\Field $supported
      * @return \ContentNegotiation\Header\Value|null
+     *
+     * supported:
+     * - application/json
+     * - application/xml
+     * - application/atom+xml
+     *
+     * preferred:
+     * - *
+     *
+     * returned:
+     * - application/json
+     *
      */
     public static function findFirstSupportedValueWhenPreferredValueHasAcceptAllTag(
         Field $preferred,

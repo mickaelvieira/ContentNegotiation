@@ -28,8 +28,8 @@ class FinderSpec extends ObjectBehavior
     )
     {
         $value1->getValue()->willReturn('application/json');
-        $value2->getValue()->willReturn('text/html');
-        $value3->getValue()->willReturn('audio/ogg');
+        $value2->getValue()->willReturn('application/xml');
+        $value3->getValue()->willReturn('application/atom+xml');
 
         $preferred->getIterator()->willReturn(
             new \ArrayIterator([
@@ -40,13 +40,13 @@ class FinderSpec extends ObjectBehavior
         );
 
         $supported->hasExactValue('application/json')->willReturn(false);
-        $supported->hasExactValue('text/html')->willReturn(true);
-        $supported->hasExactValue('audio/ogg')->willReturn(true);
+        $supported->hasExactValue('application/xml')->willReturn(true);
+        $supported->hasExactValue('application/atom+xml')->willReturn(true);
 
         $this::findFirstPreferredValueMatchingASupportedValue($preferred, $supported)
             ->shouldHaveType('\ContentNegotiation\Header\Value');
         $this::findFirstPreferredValueMatchingASupportedValue($preferred, $supported)
-            ->getValue()->shouldBeEqualTo('text/html');
+            ->getValue()->shouldBeEqualTo('application/xml');
     }
 
     /**
@@ -62,10 +62,15 @@ class FinderSpec extends ObjectBehavior
     {
         $value1->getTag()->willReturn('application');
         $value1->getValue()->willReturn('application/json');
-        $value2->getTag()->willReturn('text');
-        $value2->getValue()->willReturn('text/html');
-        $value3->getTag()->willReturn('audio');
-        $value3->getValue()->willReturn('audio/ogg');
+        $value1->hasAcceptAllTag()->willReturn(false);
+
+        $value2->getTag()->willReturn('application');
+        $value2->getValue()->willReturn('application/xml');
+        $value2->hasAcceptAllTag()->willReturn(false);
+
+        $value3->getTag()->willReturn('application');
+        $value3->getValue()->willReturn('application/atom+xml');
+        $value3->hasAcceptAllTag()->willReturn(false);
 
         $supported->getIterator()->willReturn(
             new \ArrayIterator([
@@ -75,14 +80,12 @@ class FinderSpec extends ObjectBehavior
             ])
         );
 
-        $preferred->hasAcceptAllSubTag('application')->willReturn(false);
-        $preferred->hasAcceptAllSubTag('text')->willReturn(false);
-        $preferred->hasAcceptAllSubTag('audio')->willReturn(true);
+        $preferred->hasAcceptAllSubTag('application')->willReturn(true);
 
         $this::findFirstSupportedValueMatchingAPreferredValueWithAcceptAllSubTag($preferred, $supported)
             ->shouldHaveType('\ContentNegotiation\Header\Value');
         $this::findFirstSupportedValueMatchingAPreferredValueWithAcceptAllSubTag($preferred, $supported)
-            ->getValue()->shouldBeEqualTo('audio/ogg');
+            ->getValue()->shouldBeEqualTo('application/json');
     }
 
 
@@ -99,10 +102,12 @@ class FinderSpec extends ObjectBehavior
     {
         $value1->getTag()->willReturn('application');
         $value1->getValue()->willReturn('application/json');
-        $value2->getTag()->willReturn('text');
-        $value2->getValue()->willReturn('text/html');
-        $value3->getTag()->willReturn('audio');
-        $value3->getValue()->willReturn('audio/ogg');
+
+        $value2->getTag()->willReturn('application');
+        $value2->getValue()->willReturn('application/xml');
+
+        $value3->getTag()->willReturn('application');
+        $value3->getValue()->willReturn('application/atom+xml');
 
         $supported->count()->willReturn(3);
         $supported->getIterator()->willReturn(
@@ -120,5 +125,4 @@ class FinderSpec extends ObjectBehavior
         $this::findFirstSupportedValueWhenPreferredValueHasAcceptAllTag($preferred, $supported)
             ->getValue()->shouldBeEqualTo('application/json');
     }
-
 }
