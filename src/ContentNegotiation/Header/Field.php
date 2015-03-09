@@ -35,7 +35,10 @@ class Field implements \IteratorAggregate, \Countable
     public function __construct(FieldType $type, $headerValue)
     {
         $this->type = $type;
-        $this->addValues($headerValue);
+
+        $values = (!is_array($headerValue)) ? $this->splitHeaderStringValues($headerValue) : $headerValue;
+
+        $this->addValues($values);
         $this->sort();
     }
 
@@ -56,7 +59,7 @@ class Field implements \IteratorAggregate, \Countable
     }
 
     /**
-     * {@inheritdoc}
+     * @return bool
      */
     public function hasAcceptAllTag()
     {
@@ -68,7 +71,8 @@ class Field implements \IteratorAggregate, \Countable
     }
 
     /**
-     * {@inheritdoc}
+     * @param string $tag
+     * @return bool
      */
     public function hasAcceptAllSubTag($tag)
     {
@@ -93,7 +97,7 @@ class Field implements \IteratorAggregate, \Countable
     }
 
     /**
-     * @param $tag
+     * @param string $tag
      * @return array
      */
     public function getValuesWithTag($tag)
@@ -116,13 +120,10 @@ class Field implements \IteratorAggregate, \Countable
     }
 
     /**
-     * @param string $headerValue
-     * @return array
+     * @param array $values
      */
-    private function addValues($headerValue)
+    private function addValues(array $values)
     {
-        $values = (is_string($headerValue) && !empty($headerValue)) ? explode(",", $headerValue) : [];
-
         foreach ($values as $value) {
             $entity = new Value($this->type, $value, $this->count());
             if ($entity->getQuality() > 0) {
@@ -143,50 +144,42 @@ class Field implements \IteratorAggregate, \Countable
         }
     }
 
-    private function sort()
+    /**
+     * @param $headerValue
+     * @return array
+     */
+    private function splitHeaderStringValues($headerValue)
     {
-        usort($this->values, [$this, 'sortCallback']);
-        $this->values = array_reverse($this->values);
+        return (is_string($headerValue) && !empty($headerValue)) ? explode(",", $headerValue) : [];
     }
 
-    /**
-     * @param Value $val1
-     * @param Value $val2
-     * @return int
-     */
-    private function sortCallback(Value $val1, Value $val2)
+    private function sort()
     {
-        /*$qua1 = $val1->getQuality();
-        $qua2 = $val2->getQuality();
+        usort($this->values, function (Value $val1, Value $val2) {
 
-        if ($qua1 === $qua2) {
-            $result = ($val1->getPosition() < $val2->getPosition()) ? 1 : -1;
-        } elseif ($qua1 < $qua2) {
-            $result = -1;
-        } else {
-            $result = 1;
-        }
-        return $result;*/
-        $qua1 = $val1->getQuality();
-        $qua2 = $val2->getQuality();
+            $qua1 = $val1->getQuality();
+            $qua2 = $val2->getQuality();
 
-        if ($qua1 === $qua2) {
+            if ($qua1 === $qua2) {
 
-            $count1 = $val1->countParams();
-            $count2 = $val2->countParams();
+                $count1 = $val1->countParams();
+                $count2 = $val2->countParams();
 
-            if ($count1 === $count2) {
-                $result = ($val1->getPosition() < $val2->getPosition()) ? 1 : -1; // <- louche
-            } elseif ($count1 < $count2) {
+                if ($count1 === $count2) {
+                    $result = ($val1->getPosition() < $val2->getPosition()) ? 1 : -1;
+                } elseif ($count1 < $count2) {
+                    $result = -1;
+                } else {
+                    $result = 1;
+                }
+            } elseif ($qua1 < $qua2) {
                 $result = -1;
             } else {
                 $result = 1;
             }
-        } elseif ($qua1 < $qua2) {
-            $result = -1;
-        } else {
-            $result = 1;
-        }
-        return $result;
+            return $result;
+        });
+
+        $this->values = array_reverse($this->values);
     }
 }

@@ -48,7 +48,7 @@ final class Negotiator
     public function negotiate(array $supported)
     {
         $value = null;
-        $supported = new Field($this->type, implode(",", $supported));
+        $supported = new Field($this->type, $supported);
         if ($value = Finder::findFirstPreferredValueMatchingASupportedValue(
             $this->preferred,
             $supported
