@@ -12,28 +12,72 @@
 
 namespace ContentNegotiation;
 
+use ContentNegotiation\Header\FieldTypeFactory;
+
 /**
- * Class Negotiation
+ * Class Content
  * @package ContentNegotiation
- * @link http://www.w3.org/Protocols/rfc2616/rfc2616-sec12
  */
-interface Negotiation
+class Negotiation
 {
     /**
-     * @param array $supported
-     * @return null|string
+     * @var array
      */
-    public function getMedia(array $supported);
+    private $headers = [];
 
     /**
-     * @param array $supported
-     * @return null|string
+     * @param array $headers
      */
-    public function getLanguage(array $supported);
+    public function __construct(array $headers)
+    {
+        $this->headers = $headers;
+    }
 
     /**
-     * @param array $supported
-     * @return null|string
+     * {@inheritdoc}
      */
-    public function getCharset(array $supported);
+    public function getMedia(array $supported)
+    {
+        $negotiator = NegotiatorFactory::make(
+            FieldTypeFactory::makeTypeMedia(),
+            $this->getHeaderValue('Accept')
+        );
+
+        return $negotiator->negotiate($supported);
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getLanguage(array $supported)
+    {
+        $negotiator = NegotiatorFactory::make(
+            FieldTypeFactory::makeTypeLanguage(),
+            $this->getHeaderValue('Accept-Language')
+        );
+
+        return $negotiator->negotiate($supported);
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getCharset(array $supported)
+    {
+        $negotiator = NegotiatorFactory::make(
+            FieldTypeFactory::makeTypeCharset(),
+            $this->getHeaderValue('Accept-Charset')
+        );
+
+        return $negotiator->negotiate($supported);
+    }
+
+    /**
+     * @param $type
+     * @return string
+     */
+    private function getHeaderValue($type)
+    {
+        return ($type && array_key_exists($type, $this->headers)) ? $this->headers[$type] : '';
+    }
 }

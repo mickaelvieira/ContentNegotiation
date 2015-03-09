@@ -9,11 +9,11 @@ use Prophecy\Argument;
  * Class NegotiationSpec
  * @package spec\ContentNegotiation
  */
-class ContentSpec extends ObjectBehavior
+class NegotiationSpec extends ObjectBehavior
 {
     function it_is_initializable()
     {
         $this->beConstructedWith([]);
-        $this->shouldHaveType('ContentNegotiation\Content');
+        $this->shouldHaveType('ContentNegotiation\Negotiation');
     }
 }
