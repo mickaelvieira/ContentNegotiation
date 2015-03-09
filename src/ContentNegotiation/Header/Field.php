@@ -12,6 +12,7 @@
 
 namespace ContentNegotiation\Header;
 
+use ContentNegotiation\ContentType;
 use ContentNegotiation\Header\Value;
 
 /**
@@ -36,7 +37,7 @@ class Field implements \IteratorAggregate, \Countable
     protected $values = [];
 
     /**
-     * @var string
+     * @var ContentType
      */
     private $type;
 
@@ -44,7 +45,7 @@ class Field implements \IteratorAggregate, \Countable
      * @param $type
      * @param $headerValue
      */
-    public function __construct($type, $headerValue)
+    public function __construct(ContentType $type, $headerValue)
     {
         //$this->isValidFieldType($type);
 

@@ -18,7 +18,7 @@ class LanguageSpec extends ObjectBehavior
      * en;q=0.7
      */
 
-    function it_is_initializable()
+    /*function it_is_initializable()
     {
         $this->beConstructedWith('');
         $this->shouldHaveType('ContentNegotiation\Header\Value\Language');
@@ -76,5 +76,5 @@ class LanguageSpec extends ObjectBehavior
     {
         $this->beConstructedWith('fr-be');
         $this->shouldBeEqual('fr-be');
-    }
+    }*/
 }

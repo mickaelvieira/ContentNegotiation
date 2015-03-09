@@ -11,7 +11,7 @@ use Prophecy\Argument;
  */
 class CharsetSpec extends ObjectBehavior
 {
-    function it_is_initializable()
+    /*function it_is_initializable()
     {
         $this->beConstructedWith('charset', null);
         $this->shouldHaveType('ContentNegotiation\Header\Field\Charset');
@@ -57,7 +57,7 @@ class CharsetSpec extends ObjectBehavior
     {
         $this->beConstructedWith('charset', 'utf-8, utf-7, *;q=0.3, iso-8859-1, unicode-1-1;q=0.8');
         $this->__toString()->shouldBeEqualTo('utf-8;q=1,utf-7;q=1,iso-8859-1;q=1,unicode-1-1;q=0.8,*;q=0.3');
-    }
+    }*/
 
     /*function it_should_return_the_first_matching_value()
     {
