@@ -17,11 +17,11 @@ class FinderSpec extends ObjectBehavior
     }
 
     /**
-     * @param \ContentNegotiation\Header\Value\Media $value1
-     * @param \ContentNegotiation\Header\Value\Media $value2
-     * @param \ContentNegotiation\Header\Value\Media $value3
-     * @param \ContentNegotiation\Header\Field\Media $preferred
-     * @param \ContentNegotiation\Header\Field\Media $supported
+     * @param \ContentNegotiation\Header\Value $value1
+     * @param \ContentNegotiation\Header\Value $value2
+     * @param \ContentNegotiation\Header\Value $value3
+     * @param \ContentNegotiation\Header\Field $preferred
+     * @param \ContentNegotiation\Header\Field $supported
      */
     function it_should_find_the_client_header_matching_a_supported_value(
         $value1, $value2, $value3, $preferred, $supported
@@ -50,11 +50,11 @@ class FinderSpec extends ObjectBehavior
     }
 
     /**
-     * @param \ContentNegotiation\Header\Value\Media $value1
-     * @param \ContentNegotiation\Header\Value\Media $value2
-     * @param \ContentNegotiation\Header\Value\Media $value3
-     * @param \ContentNegotiation\Header\Field\Media $preferred
-     * @param \ContentNegotiation\Header\Field\Media $supported
+     * @param \ContentNegotiation\Header\Value $value1
+     * @param \ContentNegotiation\Header\Value $value2
+     * @param \ContentNegotiation\Header\Value $value3
+     * @param \ContentNegotiation\Header\Field $preferred
+     * @param \ContentNegotiation\Header\Field $supported
      */
     function it_should_find_first_supported_value_matching_a_preferred_value_with_accept_all_subtag(
         $value1, $value2, $value3, $preferred, $supported
@@ -89,12 +89,12 @@ class FinderSpec extends ObjectBehavior
     }
 
     /**
-     * @param \ContentNegotiation\Header\Value\Language $value1
-     * @param \ContentNegotiation\Header\Value\Language $value2
-     * @param \ContentNegotiation\Header\Value\Language $value3
-     * @param \ContentNegotiation\Header\Value\Language $value4
-     * @param \ContentNegotiation\Header\Field\Language $preferred
-     * @param \ContentNegotiation\Header\Field\Language $supported
+     * @param \ContentNegotiation\Header\Value $value1
+     * @param \ContentNegotiation\Header\Value $value2
+     * @param \ContentNegotiation\Header\Value $value3
+     * @param \ContentNegotiation\Header\Value $value4
+     * @param \ContentNegotiation\Header\Field $preferred
+     * @param \ContentNegotiation\Header\Field $supported
      */
     function it_should_find_first_preferred_value_matching_a_supported_value_with_accept_all_subtag(
         $value1, $value2, $value3, $value4, $preferred, $supported
@@ -126,11 +126,11 @@ class FinderSpec extends ObjectBehavior
 
 
     /**
-     * @param \ContentNegotiation\Header\Value\Media $value1
-     * @param \ContentNegotiation\Header\Value\Media $value2
-     * @param \ContentNegotiation\Header\Value\Media $value3
-     * @param \ContentNegotiation\Header\Field\Media $preferred
-     * @param \ContentNegotiation\Header\Field\Media $supported
+     * @param \ContentNegotiation\Header\Value $value1
+     * @param \ContentNegotiation\Header\Value $value2
+     * @param \ContentNegotiation\Header\Value $value3
+     * @param \ContentNegotiation\Header\Field $preferred
+     * @param \ContentNegotiation\Header\Field $supported
      */
     function it_should_return_the_first_supported_value_when_clent_accept_all(
         $value1, $value2, $value3, $preferred, $supported
