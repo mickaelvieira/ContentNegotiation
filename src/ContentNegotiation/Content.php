@@ -12,8 +12,6 @@
 
 namespace ContentNegotiation;
 
-use ContentNegotiation\Header\FieldType;
-
 /**
  * Class Content
  * @package ContentNegotiation
@@ -38,7 +36,12 @@ class Content implements Negotiation
      */
     public function getMedia(array $supported)
     {
-        return $this->negotiate(FieldType::MEDIA_TYPE, $supported);
+        $negotiator = NegotiatorFactory::make(
+            ContentTypeFactory::makeTypeMedia(),
+            $this->getHeaderValue('Accept')
+        );
+
+        return $negotiator->negotiate($supported);
     }
 
     /**
@@ -46,7 +49,12 @@ class Content implements Negotiation
      */
     public function getLanguage(array $supported)
     {
-        return $this->negotiate(FieldType::LANGUAGE_TYPE, $supported);
+        $negotiator = NegotiatorFactory::make(
+            ContentTypeFactory::makeTypeLanguage(),
+            $this->getHeaderValue('Accept-Language')
+        );
+
+        return $negotiator->negotiate($supported);
     }
 
     /**
@@ -54,48 +62,20 @@ class Content implements Negotiation
      */
     public function getCharset(array $supported)
     {
-        return $this->negotiate(FieldType::CHARSET_TYPE, $supported);
-    }
+        $negotiator = NegotiatorFactory::make(
+            ContentTypeFactory::makeTypeCharset(),
+            $this->getHeaderValue('Accept-Charset')
+        );
 
-    /**
-     * @param string $name
-     * @param array $supported
-     * @return null|string
-     */
-    private function negotiate($name, array $supported)
-    {
-        $negotiator = $this->getNegotiator($name);
         return $negotiator->negotiate($supported);
     }
 
     /**
-     * @param string $name
-     * @return \ContentNegotiation\Negotiator
-     */
-    private function getNegotiator($name)
-    {
-        $headerValue = $this->getAcceptHeaderValues($name);
-        return Factory::build($name, $headerValue);
-    }
-
-    /**
-     * @param string $name
+     * @param $type
      * @return string
      */
-    private function getAcceptHeaderValues($name)
+    private function getHeaderValue($type)
     {
-        $type = null;
-        switch ($name) {
-            case FieldType::MEDIA_TYPE:
-                $type = 'Accept';
-                break;
-            case FieldType::CHARSET_TYPE:
-                $type = 'Accept-Charset';
-                break;
-            case FieldType::LANGUAGE_TYPE:
-                $type = 'Accept-Language';
-                break;
-        }
         return ($type && array_key_exists($type, $this->headers)) ? $this->headers[$type] : '';
     }
 }

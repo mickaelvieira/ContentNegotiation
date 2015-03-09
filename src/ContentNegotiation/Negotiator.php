@@ -12,16 +12,61 @@
 
 namespace ContentNegotiation;
 
+use ContentNegotiation\Header\Field;
+use ContentNegotiation\ContentType;
+
 /**
  * Class Negotiator
  * @package ContentNegotiation
  * @link http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html
  */
-interface Negotiator
+final class Negotiator
 {
     /**
-     * @param array $supported
-     * @return string|null
+     * @var \ContentNegotiation\AcceptHeader;
      */
-    public function negotiate(array $supported);
+    private $headerField;
+
+    /**
+     * @var \ContentNegotiation\ContentType
+     */
+    private $contentType;
+
+    /**
+     * @param \ContentNegotiation\ContentType  $contentType
+     * @param \ContentNegotiation\Header\Field $preferred
+     */
+    public function __construct(ContentType $contentType, Field $preferred)
+    {
+        $this->contentType = $contentType;
+        $this->headerField = $preferred;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function negotiate(array $supported)
+    {
+        $value = null;
+        $supported = new Field($this->contentType, implode(";", $supported));
+        if ($value = Finder::findFirstPreferredValueMatchingASupportedValue(
+            $this->headerField,
+            $supported
+        )) {
+            return $value;
+        }
+        if ($value = Finder::findFirstSupportedValueMatchingAPreferredValueWithAcceptAllSubTag(
+            $this->headerField,
+            $supported
+        )) {
+            return $value;
+        }
+        if ($value = Finder::findFirstSupportedValueWhenPreferredValueHasAcceptAllTag(
+            $this->headerField,
+            $supported
+        )) {
+            return $value;
+        }
+        return $value;
+    }
 }

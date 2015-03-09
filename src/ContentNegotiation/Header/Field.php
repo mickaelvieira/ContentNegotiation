@@ -46,7 +46,7 @@ class Field implements \IteratorAggregate, \Countable
      */
     public function __construct($type, $headerValue)
     {
-        $this->isValidFieldType($type);
+        //$this->isValidFieldType($type);
 
         $this->type = $type;
         $this->addValues($headerValue);

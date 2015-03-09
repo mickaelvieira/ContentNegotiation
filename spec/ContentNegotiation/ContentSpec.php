@@ -13,7 +13,7 @@ class ContentSpec extends ObjectBehavior
 {
     function it_is_initializable()
     {
-        $this->beConstructedWith(array());
+        $this->beConstructedWith([]);
         $this->shouldHaveType('ContentNegotiation\Content');
     }
 }
