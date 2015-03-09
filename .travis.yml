@@ -9,6 +9,3 @@ before_script:
 script:
   - php bin/phpcs --standard=PSR2 ./src/ --report=full
   - php bin/phpspec run --format=pretty -v
-
-env:
-  - COMPOSER_OPTIONS='install'
