@@ -8,4 +8,4 @@ PHP implementation of server-driven negotiation
 ./bin/phpcs --standard=PSR2 ./src/ --report=full
 
 ## PHPSpec
-./bin/phpspec run
+./bin/phpspec run --format=pretty -v
