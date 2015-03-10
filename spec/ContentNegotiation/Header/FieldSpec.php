@@ -13,7 +13,16 @@ use Prophecy\Argument;
  */
 class FieldSpec extends ObjectBehavior
 {
-    // -----------------------------------------------------------
+    function it_should_be_countable()
+    {
+        $this->beConstructedWith(FieldTypeFactory::makeTypeCharset(), null);
+        $this->shouldImplement('Countable');
+    }
+    function it_should_be_traversable()
+    {
+        $this->beConstructedWith(FieldTypeFactory::makeTypeCharset(), null);
+        $this->shouldImplement('Traversable');
+    }
     function it_should_return_the_default_charset_when_the_header_string_is_null()
     {
         $this->beConstructedWith(FieldTypeFactory::makeTypeCharset(), null);
@@ -61,8 +70,6 @@ class FieldSpec extends ObjectBehavior
         $this->beConstructedWith(FieldTypeFactory::makeTypeMedia(),'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8');
         $this->shouldHaveAcceptAllTag();
     }
-
-
     function it_should_never_have_an_accept_all_sub_tag__for_any_charset_tag()
     {
         $this->beConstructedWith(FieldTypeFactory::makeTypeCharset(), 'iso-8859-5, *, unicode-1-1;q=0.8');
@@ -78,8 +85,6 @@ class FieldSpec extends ObjectBehavior
         $this->beConstructedWith(FieldTypeFactory::makeTypeMedia(), 'text/html,image/*,application/xml;q=0.9,*/*;q=0.8');
         $this->shouldHaveAcceptAllSubTag('image');
     }
-
-
     function it_should_be_aware_of_having_a_charset_value()
     {
         $this->beConstructedWith(FieldTypeFactory::makeTypeCharset(), 'iso-8859-5;q=1,iso-8859-1;q=1,unicode-1-1;q=0.8');
@@ -95,8 +100,6 @@ class FieldSpec extends ObjectBehavior
         $this->beConstructedWith(FieldTypeFactory::makeTypeMedia(), 'audio/webm, audio/ogg, audio/wav, audio/*;q=0.9, application/ogg;q=0.7, video/*;q=0.6; */*;q=0.5');
         $this->shouldHaveExactValue('audio/ogg');
     }
-
-
     function it_should_return_values_matching_a_specific_charset_tag()
     {
         $value = new Value(FieldTypeFactory::makeTypeCharset(), 'unicode-1-1', 2);
@@ -115,7 +118,6 @@ class FieldSpec extends ObjectBehavior
             $value1, $value2, $value3
         ]);
     }
-
     function it_should_sort_the_charsets()
     {
         $this->beConstructedWith(FieldTypeFactory::makeTypeCharset(), 'utf-7;q=0.5, iso-8859-5, unicode-1-1;q=0.8');
@@ -148,5 +150,4 @@ class FieldSpec extends ObjectBehavior
         $this->beConstructedWith(FieldTypeFactory::makeTypeLanguage(), 'es-ES;q=0.7, es; q=0.6 ,fr; q=1, *;q=0.3, fr-CH');
         $this->__toString()->shouldBeEqualTo('fr;q=1,fr-CH;q=1,es-ES;q=0.7,es;q=0.6,*;q=0.3');
     }
-
 }
