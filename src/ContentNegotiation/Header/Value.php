@@ -18,7 +18,6 @@ namespace ContentNegotiation\Header;
  */
 class Value
 {
-
     /**
      * @var \ContentNegotiation\Header\FieldType
      */
@@ -41,19 +40,19 @@ class Value
 
     /**
      * @param \ContentNegotiation\Header\FieldType $type
-     * @param                                 $pieces
+     * @param string                          $pieces
      * @param null                            $position
      */
     public function __construct(FieldType $type, $pieces, $position = null)
     {
-        $this->type = $type;
+        $this->type     = $type;
         $this->position = (int)$position;
 
-        $pieces = explode(";", $pieces);
+        $pieces = explode(";", (string)$pieces);
         $values = array_shift($pieces);
 
         if ($values) {
-            $this->value = new ValueRange($type, $values);
+            $this->value  = new ValueRange($type, $values);
             $this->params = new Params($pieces);
         }
     }

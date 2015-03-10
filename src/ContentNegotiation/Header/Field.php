@@ -112,8 +112,8 @@ class Field implements \IteratorAggregate, \Countable
      */
     public function __toString()
     {
-        return implode(",", array_map(function ($item) {
-            return (string)$item;
+        return implode(",", array_map(function (Value $value) {
+            return (string)$value;
         }, $this->values));
     }
 

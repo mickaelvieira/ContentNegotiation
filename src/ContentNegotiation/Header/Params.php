@@ -99,8 +99,8 @@ final class Params implements \Countable, \IteratorAggregate
     }
 
     /**
-     * @param $name
-     * @param $value
+     * @param string $name
+     * @param string $value
      */
     private function add($name, $value)
     {
