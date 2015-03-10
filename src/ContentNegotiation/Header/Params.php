@@ -24,7 +24,7 @@ final class Params implements \Countable, \IteratorAggregate
     private $defaultQuality = 1;
 
     /**
-     * @var array
+     * @var \ContentNegotiation\Header\Param[]
      */
     private $params = [];
 

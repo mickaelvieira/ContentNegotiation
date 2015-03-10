@@ -19,18 +19,18 @@ namespace ContentNegotiation\Header;
 class Field implements \IteratorAggregate, \Countable
 {
     /**
-     * @var FieldType
+     * @var \ContentNegotiation\Header\FieldType
      */
     private $type;
 
     /**
-     * @var array
+     * @var \ContentNegotiation\Header\Value[]
      */
     private $values = [];
 
     /**
-     * @param $type
-     * @param $headerValue
+     * @param \ContentNegotiation\Header\FieldType $type
+     * @param string|array                         $headerValue
      */
     public function __construct(FieldType $type, $headerValue)
     {
@@ -63,9 +63,8 @@ class Field implements \IteratorAggregate, \Countable
      */
     public function hasAcceptAllTag()
     {
-        $result = array_filter($this->values, function ($entity) {
-            /* @var Value $entity */
-            return $entity->hasAcceptAllTag();
+        $result = array_filter($this->values, function (Value $value) {
+            return $value->hasAcceptAllTag();
         });
         return (count($result) > 0);
     }
@@ -76,35 +75,34 @@ class Field implements \IteratorAggregate, \Countable
      */
     public function hasAcceptAllSubTag($tag)
     {
-        $result = array_filter($this->values, function ($entity) use ($tag) {
-            /* @var Value $entity */
-            return $entity->hasTag($tag) && $entity->hasAcceptAllSubTag();
+        $result = array_filter($this->values, function (Value $value) use ($tag) {
+            return $value->hasTag($tag) && $value->hasAcceptAllSubTag();
         });
         return (count($result) > 0);
     }
 
     /**
-     * @param string $value
+     * @param string $val
+     *
      * @return bool
      */
-    public function hasExactValue($value)
+    public function hasExactValue($val)
     {
-        $result = array_filter($this->values, function ($entity) use ($value) {
-            /* @var Value $entity */
-            return $entity->isEqual($value);
+        $result = array_filter($this->values, function (Value $value) use ($val) {
+            return $value->isEqual($val);
         });
         return (count($result) > 0);
     }
 
     /**
      * @param string $tag
-     * @return array
+     *
+     * @return \ContentNegotiation\Header\Value[]
      */
     public function getValuesWithTag($tag)
     {
-        $result = array_filter($this->values, function ($entity) use ($tag) {
-            /* @var Value $entity */
-            return $entity->hasTag($tag);
+        $result = array_filter($this->values, function (Value $value) use ($tag) {
+            return $value->hasTag($tag);
         });
         return array_values($result);
     }
@@ -146,6 +144,7 @@ class Field implements \IteratorAggregate, \Countable
 
     /**
      * @param $headerValue
+     *
      * @return array
      */
     private function splitHeaderStringValues($headerValue)
