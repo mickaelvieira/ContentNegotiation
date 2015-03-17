@@ -109,7 +109,7 @@ class Finder
         $match = null;
         foreach ($supported as $value) {
             /** @var \ContentNegotiation\Header\Value $value */
-            if (!$value->hasAcceptAllTag() && !$value->hasAcceptAllSubTag()) {
+            if (!$value->hasAcceptAllTag() && $value->hasAcceptAllSubTag()) {
 
                 $tags = $preferred->getValuesWithTag($value->getTag());
 

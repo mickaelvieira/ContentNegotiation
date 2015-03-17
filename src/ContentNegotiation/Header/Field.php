@@ -16,7 +16,7 @@ namespace ContentNegotiation\Header;
  * Class Field
  * @package ContentNegotiation\Header
  */
-class Field implements \IteratorAggregate, \Countable
+final class Field implements \IteratorAggregate, \Countable
 {
     /**
      * @var \ContentNegotiation\Header\FieldType
