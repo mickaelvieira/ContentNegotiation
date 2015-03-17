@@ -2,7 +2,6 @@
 
 namespace spec\ContentNegotiation;
 
-use ContentNegotiation\Header\FieldTypeFactory;
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
 
