@@ -19,19 +19,16 @@ class NegotiatorFactorySpec extends ObjectBehavior
 
     function it_should_build_a_language_negotiator()
     {
-        $this::make(FieldTypeFactory::makeTypeLanguage(), [])
-            ->shouldHaveType('\ContentNegotiation\Negotiator');
+        $this::makeLanguageNegotiator('')->shouldHaveType('\ContentNegotiation\Negotiator');
     }
 
     function it_should_build_a_charset_negotiator()
     {
-        $this::make(FieldTypeFactory::makeTypeCharset(), [])
-            ->shouldHaveType('\ContentNegotiation\Negotiator');
+        $this::makeCharsetNegotiator('')->shouldHaveType('\ContentNegotiation\Negotiator');
     }
 
     function it_should_build_a_media_negotiator()
     {
-        $this::make(FieldTypeFactory::makeTypeMedia(), [])
-            ->shouldHaveType('\ContentNegotiation\Negotiator');
+        $this::makeMediaNegotiator('')->shouldHaveType('\ContentNegotiation\Negotiator');
     }
 }

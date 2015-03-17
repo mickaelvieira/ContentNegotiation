@@ -13,7 +13,7 @@
 namespace ContentNegotiation;
 
 use ContentNegotiation\Header\Field;
-use ContentNegotiation\Header\FieldType;
+use ContentNegotiation\Header\FieldTypeFactory;
 
 /**
  * Class NegotiatorFactory
@@ -22,12 +22,32 @@ use ContentNegotiation\Header\FieldType;
 final class NegotiatorFactory
 {
     /**
-     * @param \ContentNegotiation\Header\FieldType $type
-     * @param string $headerValue
+     * @param string|array $headerValue
      * @return \ContentNegotiation\Negotiator
      */
-    public static function make(FieldType $type, $headerValue)
+    public static function makeLanguageNegotiator($headerValue)
     {
+        $type = FieldTypeFactory::makeTypeLanguage();
+        return new Negotiator($type, new Field($type, $headerValue));
+    }
+
+    /**
+     * @param string|array $headerValue
+     * @return \ContentNegotiation\Negotiator
+     */
+    public static function makeCharsetNegotiator($headerValue)
+    {
+        $type = FieldTypeFactory::makeTypeCharset();
+        return new Negotiator($type, new Field($type, $headerValue));
+    }
+
+    /**
+     * @param string|array $headerValue
+     * @return \ContentNegotiation\Negotiator
+     */
+    public static function makeMediaNegotiator($headerValue)
+    {
+        $type = FieldTypeFactory::makeTypeMedia();
         return new Negotiator($type, new Field($type, $headerValue));
     }
 }
