@@ -63,14 +63,9 @@ final class Params implements \Countable, \IteratorAggregate
      */
     public function __toString()
     {
-        $str = "";
-        foreach ($this->params as $param) {
-            if (!empty($str)) {
-                $str .= ";";
-            }
-            $str .= (string)$param;
-        }
-        return $str;
+        return implode(";", array_map(function (Param $param) {
+            return (string)$param;
+        }, $this->params));
     }
 
     /**
