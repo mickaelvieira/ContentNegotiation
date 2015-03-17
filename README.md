@@ -2,19 +2,48 @@
 
 PHP implementation of server-driven negotiation
 
-# Clean code
+Specification: 
+- [RFC7231: Content Negotiation](https://tools.ietf.org/html/rfc7231#section-5.3)
 
-## PHP Code Sniffer
-./bin/phpcs --standard=PSR2 ./src/ --report=full
+## Installation
 
-## PHPSpec
-./bin/phpspec run --format=pretty -v
+ContentNegotiation requires php >= 5.4
 
-## Reference
+Install CollectionJson with [Composer](https://getcomposer.org/)
 
-[RFC7231: Content Negotiation](https://tools.ietf.org/html/rfc7231#section-5.3)
+```json
+{
+    "require": {
+        "mvieira/content-negotiation": "dev-master"
+    }
+}
+```
 
-## Usage
+## Contributing
+
+```sh
+$ git clone git@github.com:mickaelvieira/ContentNegotiation.git
+$ cd ContentNegotiation
+$ composer install
+```
+
+### Run the test
+
+The test suite has been written with [PHPSpec](http://phpspec.net/)
+
+```sh
+$ ./bin/phpspec run --format=pretty
+```
+
+### PHP Code Sniffer
+
+This project follows the coding style guide [PSR2](https://github.com/php-fig/fig-standards/blob/master/accepted/PSR-2-coding-style-guide.md)
+
+```sh
+$ ./bin/phpcs --standard=PSR2 ./src/
+```
+
+## Documentation
 
 ```php
 use ContentNegotiation\Negotiation;
