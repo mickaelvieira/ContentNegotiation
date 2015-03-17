@@ -16,7 +16,7 @@ namespace ContentNegotiation\Header;
  * Class Value
  * @package ContentNegotiation\Header
  */
-class Value
+final class Value
 {
     /**
      * @var \ContentNegotiation\Header\FieldType
