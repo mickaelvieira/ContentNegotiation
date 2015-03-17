@@ -1,9 +1,10 @@
 {
     "name": "mvieira/content-negotiation",
     "description": "PHP implementation server driven negotiation",
-    "minimum-stability": "stable",
-    "type": "library",
     "license": "MIT",
+    "type": "library",
+    "homepage": "https://github.com/mickaelvieira/ContentNegotiation",
+    "minimum-stability": "stable",
     "keywords": [
         "HTTP",
         "Content Negotiation",
