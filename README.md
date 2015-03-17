@@ -9,3 +9,7 @@ PHP implementation of server-driven negotiation
 
 ## PHPSpec
 ./bin/phpspec run --format=pretty -v
+
+## Reference
+
+[RFC7231: Content Negotiation](https://tools.ietf.org/html/rfc7231#section-5.3)
