@@ -13,3 +13,17 @@ PHP implementation of server-driven negotiation
 ## Reference
 
 [RFC7231: Content Negotiation](https://tools.ietf.org/html/rfc7231#section-5.3)
+
+## Usage
+
+```php
+use ContentNegotiation\Negotiation;
+
+$negotiation = new Negotiation(getallheaders());
+
+$media    = $negotiation->getMedia(['application/json', 'application/xml']);
+$language = $negotiation->getLanguage(['en', 'fr']);
+$charset  = $negotiation->getCharset(['utf-8']);
+
+```
+
