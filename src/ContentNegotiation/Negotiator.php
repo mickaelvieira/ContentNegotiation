@@ -42,13 +42,14 @@ final class Negotiator
     }
 
     /**
-     * @param array $supported
+     * @param array|string $supported
      * @return \ContentNegotiation\Header\Value|null
      */
-    public function negotiate(array $supported)
+    public function negotiate($supported)
     {
         $value = null;
         $supported = new Field($this->type, $supported);
+
         if ($value = Finder::findFirstPreferredValueMatchingASupportedValue(
             $this->preferred,
             $supported

@@ -32,30 +32,30 @@ final class Negotiation
     }
 
     /**
-     * @param array $supported
+     * @param array|string $supported
      * @return \ContentNegotiation\Header\Value|null
      */
-    public function getMedia(array $supported)
+    public function getMedia($supported)
     {
         $negotiator = NegotiatorFactory::makeMediaNegotiator($this->getHeaderValue('Accept'));
         return $negotiator->negotiate($supported);
     }
 
     /**
-     * @param array $supported
+     * @param array|string $supported
      * @return \ContentNegotiation\Header\Value|null
      */
-    public function getLanguage(array $supported)
+    public function getLanguage($supported)
     {
         $negotiator = NegotiatorFactory::makeLanguageNegotiator($this->getHeaderValue('Accept-Language'));
         return $negotiator->negotiate($supported);
     }
 
     /**
-     * @param array $supported
+     * @param array|string $supported
      * @return \ContentNegotiation\Header\Value|null
      */
-    public function getCharset(array $supported)
+    public function getCharset($supported)
     {
         $negotiator = NegotiatorFactory::makeCharsetNegotiator($this->getHeaderValue('Accept-Charset'));
         return $negotiator->negotiate($supported);
