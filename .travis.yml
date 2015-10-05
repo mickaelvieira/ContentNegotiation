@@ -1,11 +1,19 @@
+sudo: false
+
 language: php
 
 php: [5.4, 5.5, 5.6]
 
-before_script:
+install:
   - composer self-update
   - composer install --dev --prefer-source
 
 script:
   - php bin/phpcs --standard=PSR2 ./src/ --report=full
   - php bin/phpspec run --format=pretty -v
+
+cache:
+    directories:
+        - vendor
+        - $HOME/.composer/cache
+
